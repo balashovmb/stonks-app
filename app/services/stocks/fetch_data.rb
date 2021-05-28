@@ -1,8 +1,7 @@
 require 'uri'
 require 'net/http'
-require 'json'
 
-class Stocks::GetQuote < Service
+class Stocks::FetchData < Service
   TOKEN = '8CJiX45OdIupAnlWWpz2xjXllhTW'
   def initialize(ticker)
     @ticker = ticker
@@ -14,11 +13,10 @@ class Stocks::GetQuote < Service
     http.use_ssl = true
 
     request = Net::HTTP::Get.new(url)
-    request["Authorization"] = "Bearer #{TOKEN}"
-    request["Accept"] = 'application/json'
+    request['Authorization'] = "Bearer #{TOKEN}"
+    request['Accept'] = 'application/json'
 
-    response = http.request(request)
-
-    JSON.parse(response.read_body)
+    result = http.request(request)
+    result.read_body
   end
 end

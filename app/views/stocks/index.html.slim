@@ -1,9 +1,11 @@
-'Stock'
-
-= @stock_props
-
-= form_with url: get_quote_stocks_path, method: :get do |f|
-  = f.label :ticker, 'Ticker'
-  = f.text_field :ticker
-  = f.submit 'Get quote'
-end
+table
+  thead
+    tr
+      th ticker
+      th quote
+  tbody
+    - @stocks['quotes']['quote'].each do |stock|
+      tr
+        td = stock['symbol']
+        td = stock['last']
+/ = @stocks

@@ -5,7 +5,7 @@ RSpec.describe Stock, type: :model do
 
   describe '.get_quote' do
     it 'calls get quote service' do
-      expect(Stocks::GetQuote).to receive(:call).with('AAPL')
+      expect(Stocks::Get).to receive(:call).with('AAPL')
       Stock.get_quote('AAPL')
     end
   end

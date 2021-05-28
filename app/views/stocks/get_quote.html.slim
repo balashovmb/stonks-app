@@ -1,9 +1,12 @@
-'Stock'
+'Stock
+
+- if @not_found
+  p = "Котировка: #{@ticker} не найдена"
 
 = @stock_props
 
 - if @stock_props
-  - stock = @stock_props['quotes']['quote']
+  - stock = @stock_props['quotes']['quote'].first
   p = "Ticker:  #{stock['symbol']}"
   p = "Company:  #{stock['description']}"
   p = "Current price:  #{stock['last']}"
