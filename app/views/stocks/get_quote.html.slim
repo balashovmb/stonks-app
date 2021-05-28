@@ -1,0 +1,15 @@
+'Stock'
+
+= @stock_props
+
+- if @stock_props
+  - stock = @stock_props['quotes']['quote']
+  p = "Ticker:  #{stock['symbol']}"
+  p = "Company:  #{stock['description']}"
+  p = "Current price:  #{stock['last']}"
+
+= form_with url: get_quote_stocks_path, method: :get do |f|
+  = f.label :ticker, 'Ticker'
+  = f.text_field :ticker
+  = f.submit 'Get quote'
+end

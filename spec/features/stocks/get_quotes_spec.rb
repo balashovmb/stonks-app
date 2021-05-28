@@ -43,7 +43,7 @@ feature 'Get quote', '
   end
 
   scenario 'Existing ticker' do
-    visit stocks_path
+    visit get_quote_stocks_path
     fill_in 'Ticker', with: 'AAPL'
     click_on 'Get quote'
     expect(page).to have_content('125.28')
