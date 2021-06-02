@@ -5,7 +5,7 @@ feature 'Quotes list', '
 ' do
   given!(:quote) { create(:stock, ticker: "AAPL") }
   given!(:quote2) { create(:stock, ticker: "AZZ") }
-  let(:stocks_list_json) { File.read("#{Rails.root}/spec/data/stocks_list.json") }
+  given(:stocks_list_json) { File.read("#{Rails.root}/spec/data/stocks_list.json") }
   before { allow(Stocks::FetchData).to receive(:call).and_return(stocks_list_json) }
 
   scenario 'shows list of stocks' do

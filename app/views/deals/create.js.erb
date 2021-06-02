@@ -1,0 +1,19 @@
+
+<% if @deal.persisted? %>
+  if (typeof div === 'undefined') {
+    let div;
+    let hr;
+    div = document.createElement('div');
+    div.innerHTML = `Your deals`;
+    document.querySelector('#deals').appendChild(div);
+  } else {
+    document.querySelector('#deals-border').remove();
+  }
+  div = document.createElement('div');
+  hr = document.createElement('hr');
+  hr.setAttribute("id", "deals-border");
+  div.innerHTML = `<%= j render @deal %>`;
+  document.querySelector('#deals').appendChild(div);
+  document.querySelector('#deals').appendChild(hr);
+  document.getElementById("new-deal").reset();
+<% end %>

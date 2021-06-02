@@ -5,7 +5,7 @@ feature 'Get quote', '
   Any user get current stock quotes
   on app page
 ' do
-  let(:stock_json) { File.read("#{Rails.root}/spec/data/stock.json") }
+  given(:stock_json) { File.read("#{Rails.root}/spec/data/stock.json") }
   before { allow(Stocks::FetchData).to receive(:call).and_return(stock_json) }
 
   scenario 'Existing ticker' do

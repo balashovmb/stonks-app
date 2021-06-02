@@ -1,5 +1,3 @@
-'Stock
-
 - if @not_found
   p = "Котировка: #{@ticker} не найдена"
 
@@ -16,3 +14,19 @@
   = f.text_field :ticker
   = f.submit 'Get quote'
 end
+
+- if @stock_props
+  hr
+  #deals
+  'Make a deal
+  = form_with(model: @deal, id: "new-deal", local: false) do |f|
+    = f.hidden_field :price, value: stock['last']
+    = f.hidden_field :stock_id, value: @deal.stock.id
+    = f.radio_button :direction, "long"
+    = f.label :direction, "Long"
+    = f.radio_button :direction, "short"
+    = f.label :direction, "Short"
+    p
+      = f.text_field :volume
+      = f.label :volume, 'Volume'
+    = f.submit "Make a deal"

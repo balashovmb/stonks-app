@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_27_163009) do
+ActiveRecord::Schema.define(version: 2021_06_02_052010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "deals", force: :cascade do |t|
+    t.bigint "stock_id", null: false
+    t.integer "price", null: false
+    t.integer "volume", null: false
+    t.integer "direction", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["stock_id"], name: "index_deals_on_stock_id"
+  end
 
   create_table "stocks", force: :cascade do |t|
     t.string "ticker", null: false
@@ -21,4 +31,5 @@ ActiveRecord::Schema.define(version: 2021_05_27_163009) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "deals", "stocks"
 end

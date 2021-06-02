@@ -1,11 +1,19 @@
 class Stock < ApplicationRecord
+  has_many :deals
+
   validates :ticker, presence: true, uniqueness: true
 
-  def self.get_quote(ticker)
-    data = Stocks::Get.call(ticker)
-    return nil unless data && !data['quotes'].has_key?('unmatched_symbols')
+  class << self
+    def get_stock_data(ticker)
+      data = Stocks::Get.call(ticker)
+      Rails.logger.info data
+      data && data['quotes'].key?('quote') ? data : nil
+    end
 
-    Stock.create(ticker: ticker.upcase)
-    data
+    def get_and_create_stock(ticker)
+      data = get_stock_data(ticker)
+      stock = Stock.find_or_create_by(ticker: ticker.upcase) if data && !data['quotes'].key?('unmatched_symbols')
+      { data: data, stock: stock }
+    end
   end
 end
