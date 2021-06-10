@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :portfolio do
-    cash { 1 }
+    cash { 100000 }
     user
   end
 end

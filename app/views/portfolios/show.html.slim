@@ -1,0 +1,12 @@
+= "Free cash: #{money_format(@portfolio.cash)}"
+
+= form_with url: change_cash_volume_portfolio_path, method: :patch do |f|
+  p 
+    = f.radio_button :operation, "deposite"
+    = f.label :operation, "Deposite"
+    = f.radio_button :operation, "widthdraw"
+    = f.label :operation, "Widthdraw"
+  p 
+    = f.label :summ, 'Summ'
+    = f.text_field :summ
+  = f.submit 'Make operation'

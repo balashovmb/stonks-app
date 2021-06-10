@@ -13,4 +13,6 @@ html
     hr
     p.notice = notice
     p.alert = alert
+    - if (alert || notice)
+      hr
     = yield
