@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_09_113625) do
+ActiveRecord::Schema.define(version: 2021_06_11_054626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 2021_06_09_113625) do
     t.integer "direction", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "portfolio_id", null: false
+    t.index ["portfolio_id"], name: "index_deals_on_portfolio_id"
     t.index ["stock_id"], name: "index_deals_on_stock_id"
   end
 
@@ -51,6 +53,7 @@ ActiveRecord::Schema.define(version: 2021_06_09_113625) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "deals", "portfolios"
   add_foreign_key "deals", "stocks"
   add_foreign_key "portfolios", "users"
 end

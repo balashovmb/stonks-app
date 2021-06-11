@@ -1,5 +1,6 @@
 class Portfolio < ApplicationRecord
   belongs_to :user
+  has_many :deals
 
   def change_cash_volume(params)
     summ = params[:summ].to_i
