@@ -1,19 +1,13 @@
 class Deal < ApplicationRecord
+  include Measureable
+
   belongs_to :stock
   belongs_to :portfolio
 
   validate :enough_cash
 
   after_create :checkout
-
-  enum direction: {
-    short: 0,
-    long: 1
-  }
-
-  def amount
-    volume * price
-  end
+  after_create { TradePositions::CreateOrUpdate.call(self) }
 
   def enough_cash
     errors.add(:cash, 'Not enough cash') if portfolio.cash < amount
@@ -21,6 +15,7 @@ class Deal < ApplicationRecord
 
   def checkout
     # TODO: transaction
-    portfolio.update(cash: portfolio.cash - amount)
+    cash_diff = amount * (direction == 'long' ? 1 : -1)
+    portfolio.update(cash: portfolio.cash - cash_diff)
   end
 end

@@ -1,5 +1,26 @@
 = "Free cash: #{money_format(@portfolio.cash)}"
 
+h3 Positions
+table
+  thead
+    tr
+      th Ticker
+      th Direction
+      th Volume
+      th Average price
+      th Amount
+  tbody
+    - @portfolio.trade_positions.each do |position|
+      tr
+        td
+          - ticker = position.stock.ticker
+          = link_to ticker, get_quote_stocks_path(ticker: ticker)
+        td = position.direction
+        td = position.volume
+        td = money_format(position.average_price)
+        td = money_format(position.amount)
+
+hr
 = form_with url: change_cash_volume_portfolio_path, method: :patch do |f|
   p 
     = f.radio_button :operation, "deposite"
@@ -7,6 +28,6 @@
     = f.radio_button :operation, "widthdraw"
     = f.label :operation, "Widthdraw"
   p 
-    = f.label :summ, 'Summ'
+    => f.label :summ, 'Summ'
     = f.text_field :summ
   = f.submit 'Make operation'
