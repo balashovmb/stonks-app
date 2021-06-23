@@ -6,7 +6,6 @@ class Stock < ApplicationRecord
   class << self
     def get_stock_data(ticker)
       data = Stocks::Get.call(ticker)
-      Rails.logger.info data
       data && data['quotes'].key?('quote') ? data : nil
     end
 

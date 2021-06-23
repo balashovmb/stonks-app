@@ -11,9 +11,9 @@
   p = "Current price:  #{stock['last']}"
 
 = form_with url: get_quote_stocks_path, method: :get do |f|
-  = f.label :ticker, 'Ticker'
+  => f.label :ticker, 'Ticker'
   = f.text_field :ticker
-  = f.submit 'Get quote'
+  =< f.submit 'Get quote'
 end
 
 - if @stock_props && user_signed_in?
@@ -30,5 +30,5 @@ end
     = f.label :direction, "Short"
     p
       = f.text_field :volume
-      = f.label :volume, 'Volume'
+      =< f.label :volume, 'Volume'
     = f.submit "Make a deal"
