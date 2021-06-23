@@ -4,8 +4,9 @@ table
       th ticker
       th quote
   tbody
-    - @stocks['quotes']['quote'].each do |stock|
-      tr
-        td = stock['symbol']
-        td = stock['last']
+    - if @stocks
+      - @stocks['quotes']['quote'].each do |stock|
+        tr
+          td = stock['symbol']
+          td = stock['last']
 / = @stocks
