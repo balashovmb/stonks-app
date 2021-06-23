@@ -1,4 +1,6 @@
-= "Free cash: #{money_format(@portfolio.cash)}"
+p = "Free cash: #{money_format(@portfolio_report[:cash])}"
+p = "Portfolio value: #{money_format(@portfolio_report[:value])}"
+p = "Financial result: #{money_format(@portfolio_report[:financial_result])}"
 
 h3 Positions
 table
@@ -9,17 +11,22 @@ table
       th Volume
       th Average price
       th Amount
+      th Current price
+      th Financial result
+      th Result in %
   tbody
-    - @portfolio.trade_positions.each do |position|
+    - @portfolio_report[:trade_positions_dynamics]&.each do |position|
       tr
         td
-          - ticker = position.stock.ticker
+          - ticker = position[:ticker]
           = link_to ticker, get_quote_stocks_path(ticker: ticker)
-        td = position.direction
-        td = position.volume
-        td = money_format(position.average_price)
-        td = money_format(position.amount)
-
+        td = position[:direction]
+        td = position[:volume]
+        td = money_format(position[:average_price])
+        td = money_format(position[:amount])
+        td = money_format(position[:current_price])
+        td = money_format(position[:financial_result])
+        td = position[:result_in_percent]
 hr
 = form_with url: change_cash_volume_portfolio_path, method: :patch do |f|
   p 

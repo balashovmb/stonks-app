@@ -15,7 +15,8 @@ class Deal < ApplicationRecord
 
   def checkout
     # TODO: transaction
-    cash_diff = amount * (direction == 'long' ? 1 : -1)
+    cash_diff = amount
+    cash_diff = -cash_diff if direction == 'short'
     portfolio.update(cash: portfolio.cash - cash_diff)
   end
 end
