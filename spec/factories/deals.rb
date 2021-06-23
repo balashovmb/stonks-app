@@ -1,7 +1,8 @@
 FactoryBot.define do
   factory :deal do
-    stock { nil }
-    price { "9.99" }
+    stock
+    price { 999 }
     volume { 1 }
+    direction { 'long' }
   end
 end

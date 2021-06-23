@@ -4,12 +4,13 @@ class DealsController < ApplicationController
   end
 
   def create
-    @deal = Deal.new(deal_params)
+    @deal = current_user.portfolio.deals.new(deal_params)
     respond_to do |format|
       if @deal.save
         format.js
         format.html { redirect_to @deal, notice: "You bought #{@deal.volume} stocks" }
       else
+        format.js
         format.html { render :new }
       end
     end

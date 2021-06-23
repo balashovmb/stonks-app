@@ -16,4 +16,8 @@
   document.querySelector('#deals').appendChild(div);
   document.querySelector('#deals').appendChild(hr);
   document.getElementById("new-deal").reset();
+  document.querySelector('#cash').innerHTML = 'Cash: <%= money_format(@deal.portfolio.cash) %>';
+  document.querySelector('.quote_errors').innerHTML = '';
+<% else %>
+  document.querySelector('.quote_errors').innerHTML = `<%= j render partial: "common/errors", locals: {resource: @deal} %>`;
 <% end %>
