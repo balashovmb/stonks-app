@@ -16,7 +16,7 @@ RSpec.describe Deal, type: :model do
   end
   describe '.create' do
     it 'calls create of update trade position service' do
-      expect(TradePositions::CreateOrUpdate).to receive(:call)
+      expect(TradePosition::CreateOrUpdate).to receive(:call)
       deal.save
     end
     context 'first deal with stock' do

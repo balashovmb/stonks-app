@@ -1,7 +1,7 @@
 require 'uri'
 require 'net/http'
 
-class Stocks::FetchData < Service
+class Stock::FetchData < Service
   TOKEN = '8CJiX45OdIupAnlWWpz2xjXllhTW'
   def initialize(ticker)
     @ticker = ticker

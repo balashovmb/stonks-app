@@ -5,7 +5,7 @@ class Stock < ApplicationRecord
 
   class << self
     def get_stock_data(ticker)
-      data = Stocks::Get.call(ticker)
+      data = Stock::Get.call(ticker)
       data && data['quotes'].key?('quote') ? data : nil
     end
 

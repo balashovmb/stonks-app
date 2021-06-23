@@ -1,4 +1,4 @@
-class TradePositions::CreateOrUpdate < Service
+class TradePosition::CreateOrUpdate < Service
   def initialize(deal)
     @deal = deal
   end

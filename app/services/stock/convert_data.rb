@@ -1,6 +1,6 @@
 require 'json'
 
-class Stocks::ConvertData < Service
+class Stock::ConvertData < Service
   def initialize(stock_json)
     @stock_json = stock_json
   end

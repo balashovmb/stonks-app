@@ -6,7 +6,7 @@ feature 'Get quote', '
   on app page
 ' do
   given(:stock_json) { File.read("#{Rails.root}/spec/data/stock.json") }
-  before { allow(Stocks::FetchData).to receive(:call).and_return(stock_json) }
+  before { allow(Stock::FetchData).to receive(:call).and_return(stock_json) }
 
   context 'Existing ticker' do
     scenario 'enough cash' do

@@ -7,7 +7,7 @@ class Deal < ApplicationRecord
   validate :enough_cash
 
   after_create :checkout
-  after_create { TradePositions::CreateOrUpdate.call(self) }
+  after_create { TradePosition::CreateOrUpdate.call(self) }
 
   def enough_cash
     errors.add(:cash, 'Not enough cash') if portfolio.cash < amount

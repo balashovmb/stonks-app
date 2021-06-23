@@ -1,7 +1,7 @@
 class StocksController < ApplicationController
   def index
     tickers = Stock.all.map { |stock| stock.ticker }.sort.join(',')
-    @stocks = Stocks::Get.call(tickers) || [] unless tickers.empty?
+    @stocks = Stock::Get.call(tickers) || [] unless tickers.empty?
   end
 
   def get_quote

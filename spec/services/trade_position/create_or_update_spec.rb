@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe TradePositions::CreateOrUpdate do
+describe TradePosition::CreateOrUpdate do
   let(:portfolio) { create(:portfolio) }
   let(:deal) { build(:deal, portfolio: portfolio) }
   # let(:subject) { described_class.call(deal) }

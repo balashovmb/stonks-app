@@ -6,7 +6,7 @@ feature 'Create deal', '
 ' do
   given(:stock_json) { File.read("#{Rails.root}/spec/data/stock.json") }
   given(:portfolio) { create(:portfolio) }
-  before { allow(Stocks::FetchData).to receive(:call).and_return(stock_json) }
+  before { allow(Stock::FetchData).to receive(:call).and_return(stock_json) }
 
   scenario 'Existing ticker', js: true do
     sign_in(portfolio.user)

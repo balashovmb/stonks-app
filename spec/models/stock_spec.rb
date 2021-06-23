@@ -6,14 +6,14 @@ RSpec.describe Stock, type: :model do
   describe '.get_and_create_stock' do
     let(:stock_json) { File.read("#{Rails.root}/spec/data/stock.json") }
     it 'creates stock' do
-      allow(Stocks::FetchData).to(receive(:call).and_return(stock_json))
+      allow(Stock::FetchData).to(receive(:call).and_return(stock_json))
       expect { Stock.get_and_create_stock('AAPL') }.to change { Stock.count }.by(1)
     end
   end
 
   describe '.get_stock_data' do
     it 'calls get quote service' do
-      expect(Stocks::Get).to receive(:call).with('AAPL')
+      expect(Stock::Get).to receive(:call).with('AAPL')
       Stock.get_stock_data('AAPL')
     end
   end
