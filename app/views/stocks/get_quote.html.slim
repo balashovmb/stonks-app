@@ -1,14 +1,10 @@
 - if @not_found
   p = "Котировка: #{@ticker} не найдена"
 
-= @stock_props
-
-
 - if @stock_props
-  - stock = @stock_props['quotes']['quote'].first
-  p = "Ticker:  #{stock['symbol']}"
-  p = "Company:  #{stock['description']}"
-  p = "Current price:  #{stock['last']}"
+  p = "Ticker:  #{@stock_props[:ticker]}"
+  p = "Company:  #{@stock_props[:description]}"
+  p = "Current price:  #{money_format(@stock_props[:current_price])}"
 
 = form_with url: get_quote_stocks_path, method: :get do |f|
   => f.label :ticker, 'Ticker'
@@ -22,7 +18,7 @@ end
   #deals
   'Make a deal
   = form_with(model: @deal, id: "new-deal", local: false) do |f|
-    = f.hidden_field :price, value: stock['last']
+    = f.hidden_field :price, value: money_format(@stock_props[:current_price])
     = f.hidden_field :stock_id, value: @deal.stock.id
     = f.radio_button :direction, "long"
     = f.label :direction, "Long"

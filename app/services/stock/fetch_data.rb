@@ -17,6 +17,6 @@ class Stock::FetchData < Service
     request['Accept'] = 'application/json'
 
     result = http.request(request)
-    result.read_body
+    {stock_json: result.read_body, status: result.code, source: 'tradier'}
   end
 end

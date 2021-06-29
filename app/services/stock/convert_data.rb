@@ -1,15 +1,21 @@
 require 'json'
 
 class Stock::ConvertData < Service
-  def initialize(stock_json)
+  def initialize(stock_json:, status:, source:)
     @stock_json = stock_json
+    @status = status
+    @source = source
   end
 
   def call
-    result = JSON.parse(@stock_json)
-    return result unless result['quotes']['quote'].class.to_s == 'Hash'
-
-    result['quotes']['quote'] = [result['quotes']['quote']]
-    result
+    case @source
+    when 'tradier'
+      stocks = Stock::ConvertDataFromTradier.call(stock_json: @stock_json)
+    end
+    {
+      source: @source,
+      status: @status,
+      stocks: stocks
+    }
   end
 end
