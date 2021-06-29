@@ -1,6 +1,6 @@
 class PortfoliosController < ApplicationController
   def show
-    @portfolio = current_user.portfolio
+    @portfolio_report = Portfolio::CreateReport.call(current_user.portfolio)
   end
 
   def change_cash_volume
