@@ -6,7 +6,7 @@ describe Portfolio::CreateReport do
   let(:portfolio) { create(:portfolio) }
   let!(:deal) { create(:deal, portfolio: portfolio) }
   let(:subject) { described_class.call(portfolio) }
-  before { allow(Stock::FetchData).to receive(:call).and_return(stock_json) }
+  before { allow(Stock::FetchData).to receive(:call).and_return({ stock_json: stock_json, status: 200, source: 'tradier' }) }
   it 'creates TradePosition' do
     expect(subject).to eq(
       {

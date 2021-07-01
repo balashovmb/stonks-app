@@ -1,12 +1,16 @@
-table
-  thead
-    tr
-      th ticker
-      th quote
-  tbody
-    - if @stocks
-      - @stocks['quotes']['quote'].each do |stock|
+- if @stocks
+  table
+    thead
+      tr
+        th Ticker
+        th Quote
+    tbody
+      - @stocks.each_pair do |_, stock|
         tr
-          td = stock['symbol']
-          td = stock['last']
+          - ticker = stock[:ticker]
+          td = link_to ticker, get_quote_stocks_path(ticker: ticker)
+          td = money_format(stock[:current_price])
+- else
+  'Stocks list are empty
+end
 / = @stocks

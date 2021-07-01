@@ -8,8 +8,8 @@ class Portfolio::CreateReport < Service
     tickers = @portfolio.trade_positions.all.map { |position| position.stock.ticker }.sort.join(',')
     return report if tickers.empty?
 
-    stocks = Stock::Get.call(tickers)
-    stocks = stocks['quotes']['quote']
+    stocks_with_metadata = Stock::Get.call(tickers)
+    stocks = stocks_with_metadata[:stocks]
     return report unless stocks
 
     report[:trade_positions_dynamics] = trade_positions_dynamics(@portfolio.trade_positions, stocks)
@@ -25,19 +25,19 @@ class Portfolio::CreateReport < Service
   end
 
   def trade_positions_dynamics(trade_positions, stocks)
-    stocks.map do |stock|
-      current_position = trade_positions.includes(:stock).find_by(stock: { ticker: stock['symbol'] })
-      generate_position_props(current_position, stock)
+    stocks.keys.map do |ticker|
+      current_position = trade_positions.includes(:stock).find_by(stock: { ticker: ticker.to_s.upcase })
+      generate_position_props(current_position, stocks[ticker])
     end
   end
 
   def generate_position_props(current_position, stock)
     average_price = current_position.average_price
-    current_price = stock['last'] * 100
+    current_price = stock[:current_price]
     financial_result = (current_price - average_price) * current_position.volume
     financial_result = -financial_result if current_position.direction == 'short'
     {
-      ticker: stock['symbol'],
+      ticker: stock[:ticker],
       direction: current_position.direction,
       volume: current_position.volume,
       amount: current_position.amount,

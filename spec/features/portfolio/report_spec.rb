@@ -7,7 +7,7 @@ feature 'Portfolio report', '
   given(:stock_json) { File.read("#{Rails.root}/spec/data/stock.json") }
   given(:portfolio) { create(:portfolio) }
   given!(:deal) { create(:deal, portfolio: portfolio) }
-  before { allow(Stock::FetchData).to receive(:call).and_return(stock_json) }
+  before { allow(Stock::FetchData).to receive(:call).and_return({ stock_json: stock_json, status: 200, source: 'tradier' }) }
 
   scenario 'one stock' do
     sign_in(portfolio.user)
