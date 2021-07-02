@@ -11,7 +11,7 @@ class Stock < ApplicationRecord
 
     def get_and_create_stock(ticker)
       data = get_stock_data(ticker)
-      stock = Stock.find_or_create_by(ticker: ticker.upcase) if data && !data.key?(:unmatched_symbols)
+      stock = Stock.find_or_create_by(ticker: ticker.upcase) if data && !data[:stocks].key?(:unmatched_symbols)
       { data: data, stock: stock }
     end
   end

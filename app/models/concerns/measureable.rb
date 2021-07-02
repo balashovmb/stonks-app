@@ -7,6 +7,8 @@ module Measureable
       short: 0,
       long: 1
     }
+
+    validates :direction, inclusion: { in: directions }
   end
 
   def amount

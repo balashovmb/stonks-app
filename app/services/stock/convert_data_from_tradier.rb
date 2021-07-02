@@ -8,8 +8,10 @@ class Stock::ConvertDataFromTradier < Service
   def call
     res = {}
     stocks_data = JSON.parse(@stock_json)
-    res[:unmatched_symbols] = stocks_data['unmatched_symbols']['symbol'] if stocks_data['unmatched_symbols']
+    res[:unmatched_symbols] = stocks_data['quotes']['unmatched_symbols']['symbol'] if stocks_data['quotes']['unmatched_symbols']
     stocks_props = stocks_data['quotes']['quote']
+    return res unless stocks_props
+
     if stocks_props.class.to_s == 'Hash'
       res = stock_props_to_hash(stocks_props)
     else
