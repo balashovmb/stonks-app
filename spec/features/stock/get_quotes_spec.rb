@@ -30,4 +30,12 @@ feature 'Get quote', '
       expect(page).to have_content('Unknown ticker')
     end
   end
+  context 'Unknown ticker' do
+    scenario 'shows "Ticker must consist of Latin characters" message' do
+      visit get_quote_stocks_path
+      fill_in 'Ticker', with: 'ЯНДЕКС'
+      click_on 'Get quote'
+      expect(page).to have_content('Ticker must consist of Latin characters')
+    end
+  end
 end

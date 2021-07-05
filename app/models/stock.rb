@@ -5,13 +5,12 @@ class Stock < ApplicationRecord
 
   class << self
     def get_stock_data(ticker)
-      data = Stock::Get.call(ticker)
-      data && data[:stocks] ? data : nil
+      Stock::Get.call(ticker)
     end
 
     def get_and_create_stock(ticker)
       data = get_stock_data(ticker)
-      stock = Stock.find_or_create_by(ticker: ticker.upcase) if data && !data.key?(:unmatched_symbols)
+      stock = Stock.find_or_create_by(ticker: ticker.upcase) if data&.dig(:stocks)
       { data: data, stock: stock }
     end
   end
