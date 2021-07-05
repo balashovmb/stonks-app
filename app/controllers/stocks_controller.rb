@@ -2,7 +2,7 @@ class StocksController < ApplicationController
   def index
     tickers = Stock.all.map(&:ticker).sort.join(',')
     stocks_with_metadata = Stock::Get.call(tickers) unless tickers.empty?
-    @stocks = stocks_with_metadata ? stocks_with_metadata[:stocks] : nil
+    @stocks = stocks_with_metadata[:stocks] if stocks_with_metadata&.dig(:stocks)
   end
 
   def get_quote

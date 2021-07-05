@@ -9,7 +9,7 @@ describe Stock::ConvertDataFromTradier do
 
   it 'converts one stock data from Tradier' do
     expect(subject).to eq(
-      {
+      stocks: {
         aapl: {
           ticker: 'AAPL',
           description: 'Apple Inc',
@@ -20,7 +20,7 @@ describe Stock::ConvertDataFromTradier do
   end
   it 'converts stocks list data from Tradier' do
     expect(subject2).to eq(
-      {
+      stocks: {
         aapl: {
           ticker: 'AAPL',
           description: 'Apple Inc',

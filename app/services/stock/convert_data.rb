@@ -12,10 +12,9 @@ class Stock::ConvertData < Service
     when 'tradier'
       stocks = Stock::ConvertDataFromTradier.call(stock_json: @stock_json)
     end
-    {
-      source: @source,
-      status: @status,
-      stocks: stocks
-    }
+    stocks.merge({
+                   source: @source,
+                   status: @status
+                 })
   end
 end
