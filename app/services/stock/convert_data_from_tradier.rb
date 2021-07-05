@@ -29,7 +29,7 @@ class Stock::ConvertDataFromTradier < Service
     { ticker.downcase.to_sym => {
       ticker: ticker,
       description: stock['description'],
-      current_price: (stock['last'] * 100).to_i
+      current_price: Money::ConvertToStorageFormat.call(stock['last'])
     } }
   end
 end
