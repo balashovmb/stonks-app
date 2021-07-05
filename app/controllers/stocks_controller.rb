@@ -10,7 +10,10 @@ class StocksController < ApplicationController
     return unless @ticker
 
     stocks_with_metadata = Stock.get_and_create_stock(@ticker)
-    return @not_found = true if stocks_with_metadata[:data][:unmatched_symbols]
+
+    return @not_found = true if stocks_with_metadata&.dig(:data, :unmatched_symbols)
+
+    return @error_message = stocks_with_metadata&.dig(:data, :error_message) if stocks_with_metadata&.dig(:data, :error)
 
     @stock_props = stocks_with_metadata[:data][:stocks].first[1]
 
