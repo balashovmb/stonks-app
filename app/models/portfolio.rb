@@ -6,8 +6,8 @@ class Portfolio < ApplicationRecord
   validates :cash, numericality: { greater_than_or_equal_to: 0 }
 
   def get_or_add_cash(params)
-    summ = params[:summ].to_i
-    summ_in_cent = summ * 100
+    summ = params[:summ].to_f
+    summ_in_cent = Money::ConvertToStorageFormat.call(summ)
     case params[:operation]
     when 'deposite'
       update(cash: self.cash += summ_in_cent)
