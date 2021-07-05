@@ -4,6 +4,9 @@ class Deal < ApplicationRecord
   belongs_to :stock
   belongs_to :portfolio
 
+  validates :volume, numericality: { greater_than_or_equal_to: 0 }
+  validates :price, numericality: { greater_than: 0 }
+
   validate :enough_cash
 
   after_create :checkout
@@ -14,7 +17,6 @@ class Deal < ApplicationRecord
   end
 
   def checkout
-    # TODO: transaction
     cash_diff = amount
     cash_diff = -cash_diff if direction == 'short'
     portfolio.update(cash: portfolio.cash - cash_diff)

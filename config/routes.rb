@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :deals, only: [:create, :show]
 
   resource :portfolio, only: :show do
-    patch :change_cash_volume
+    patch :get_or_add_cash
   end
 
   root to: "stocks#index"

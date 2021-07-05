@@ -3,8 +3,8 @@ class PortfoliosController < ApplicationController
     @portfolio_report = Portfolio::CreateReport.call(current_user.portfolio)
   end
 
-  def change_cash_volume
-    message = current_user.portfolio.change_cash_volume(params)
+  def get_or_add_cash
+    message = current_user.portfolio.get_or_add_cash(params)[:message]
     redirect_to '/portfolio', notice: message
   end
 end

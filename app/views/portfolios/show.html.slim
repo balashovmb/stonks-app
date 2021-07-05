@@ -28,7 +28,8 @@ table
         td = money_format(position[:financial_result])
         td = position[:result_in_percent]
 hr
-= form_with url: change_cash_volume_portfolio_path, method: :patch do |f|
+
+= form_with url: get_or_add_cash_portfolio_path, method: :patch do |f|
   p 
     = f.radio_button :operation, "deposite"
     = f.label :operation, "Deposite"
