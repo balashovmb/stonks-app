@@ -20,4 +20,9 @@ class StocksController < ApplicationController
     stock = stocks_with_metadata[:stock]
     @deal = stock.deals.new if stock
   end
+
+  def quote_stream
+    quote = Stock.get_stock_data(params[:ticker])
+    render json: quote
+  end
 end
