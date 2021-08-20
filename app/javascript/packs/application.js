@@ -10,5 +10,7 @@ import "channels"
 import "deals"
 
 Rails.start()
-Turbolinks.start()
+// Turbolinks.start()
 ActiveStorage.start()
+
+import "controllers"

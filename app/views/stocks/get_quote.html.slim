@@ -3,9 +3,10 @@
 = @error_message
 
 - if @stock_props
-  p = "Ticker:  #{@stock_props[:ticker]}"
+  p#current_ticker data-ticker= "#{@stock_props[:ticker]}" = "Ticker: #{@stock_props[:ticker]}"
   p = "Company:  #{@stock_props[:description]}"
-  p = "Current price:  #{money_format(@stock_props[:current_price])}"
+  p#quote = "Current price: #{money_format(@stock_props[:current_price])}"
+
 
 = form_with url: get_quote_stocks_path, method: :get do |f|
   => f.label :ticker, 'Ticker'
