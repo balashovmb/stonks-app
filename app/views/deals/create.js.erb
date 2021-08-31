@@ -10,8 +10,9 @@
     document.querySelector('#deals-border').remove();
   }
   div = document.createElement('div');
-  hr = document.createElement('hr');
-  hr.setAttribute("id", "deals-border");
+  hr = document.createElement('div');
+  hr.setAttribute('id', 'deals-border');
+  hr.setAttribute('class', 'border-bottom border-primary')
   div.innerHTML = `<%= j render @deal %>`;
   document.querySelector('#deals').appendChild(div);
   document.querySelector('#deals').appendChild(hr);

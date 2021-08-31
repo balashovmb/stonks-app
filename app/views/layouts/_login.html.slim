@@ -1,8 +1,0 @@
-- if user_signed_in?
-  = current_user.email
-  p#cash = "Cash: #{money_format(current_user.portfolio.cash)}"
-  p = link_to 'Sign out', destroy_user_session_path, method: :delete
-  p = link_to 'My account', edit_user_registration_path
-  p = link_to 'Portfolio', portfolio_path
-- else
-  p = link_to 'Sign in', new_user_session_path

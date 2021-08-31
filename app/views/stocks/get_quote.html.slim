@@ -2,31 +2,42 @@
   p = "Unknown ticker: #{@ticker}"
 = @error_message
 
+.mt-3 = form_with url: get_quote_stocks_path, method: :get do |f|
+  .row.align-items-center
+    .col-1
+      = f.label :ticker, 'Ticker', class: 'form-label'
+    .col-3
+      = f.text_field :ticker, class: 'form-control'
+    .col-1
+      = f.submit 'Get quote', class: 'btn btn-primary'
+
 - if @stock_props
-  p#current_ticker data-ticker= "#{@stock_props[:ticker]}" = "Ticker: #{@stock_props[:ticker]}"
-  p = "Company:  #{@stock_props[:description]}"
-  p#quote = "Current price: #{money_format(@stock_props[:current_price])}"
-
-
-= form_with url: get_quote_stocks_path, method: :get do |f|
-  => f.label :ticker, 'Ticker'
-  = f.text_field :ticker
-  =< f.submit 'Get quote'
-end
+  .border-top.border-primary.mt-3
+    p.pt-2#current_ticker data-ticker= "#{@stock_props[:ticker]}" = "Ticker: #{@stock_props[:ticker]}"
+    p = "Company:  #{@stock_props[:description]}"
+    p#quote = "Current price: #{money_format(@stock_props[:current_price])}"
 
 - if @stock_props && user_signed_in?
-  hr
+  .border-top.border-primary.mt-3
   .quote_errors
   #deals
-  'Make a deal
-  = form_with(model: @deal, id: "new-deal", local: false) do |f|
+  .pt-2 Make a deal
+  .mt-2 = form_with(model: @deal, id: "new-deal", local: false) do |f|
     = f.hidden_field :price, value: money_format(@stock_props[:current_price])
     = f.hidden_field :stock_id, value: @deal.stock.id
-    = f.radio_button :direction, "long"
-    = f.label :direction, "Long"
-    = f.radio_button :direction, "short"
-    = f.label :direction, "Short"
-    p
-      = f.text_field :volume
-      =< f.label :volume, 'Volume'
-    = f.submit "Make a deal"
+    .row
+      .col-1
+        .form-check
+          = f.radio_button :direction, "long", class: "form-check-input"
+          = f.label :direction, "Long", :value => 'long', class: "form-check-label"
+      .col-1
+        .form-check
+          = f.radio_button :direction, "short", class: "form-check-input"
+          = f.label :direction, "Short", :value => 'short', class: "form-check-label"
+    .mt-2.row.align-items-center
+      .col-2
+        = f.text_field :volume, class: 'form-control'
+      .col-1
+        = f.label :volume, 'Volume', class: 'form-label'
+    .mt-3
+      = f.submit "Make a deal", class: "btn btn-success"

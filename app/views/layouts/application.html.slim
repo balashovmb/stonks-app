@@ -10,10 +10,10 @@ html
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = action_cable_meta_tag
   body
-    = render 'layouts/login'
-    hr
-    p.notice = notice
-    p.alert = alert
-    - if (alert || notice)
-      hr
-    = yield
+    .container-xxl
+      = render 'layouts/header'
+      - if notice
+        p.mt-2.alert.alert-primary = notice
+      - if alert
+        p.mt-2.alert.alert-danger = alert
+      = yield
