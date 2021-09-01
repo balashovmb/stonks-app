@@ -27,15 +27,23 @@ feature 'Get quote', '
       visit get_quote_stocks_path
       fill_in 'Ticker', with: 'ASDFFF'
       click_on 'Get quote'
-      expect(page).to have_content('Unknown ticker')
+      expect(page).to have_content('Ticker not found')
     end
   end
-  context 'Unknown ticker' do
+  context 'Non-latin chars in ticker' do
     scenario 'shows "Ticker must consist of Latin characters" message' do
       visit get_quote_stocks_path
       fill_in 'Ticker', with: 'ЯНДЕКС'
       click_on 'Get quote'
       expect(page).to have_content('Ticker must consist of Latin characters')
+    end
+  end
+  context 'Empty ticker' do
+    scenario 'shows "Ticker field is empty" message' do
+      visit get_quote_stocks_path
+      fill_in 'Ticker', with: ''
+      click_on 'Get quote'
+      expect(page).to have_content('Ticker field is empty')
     end
   end
 end

@@ -8,7 +8,11 @@ class Stock::ConvertDataFromTradier < Service
   def call
     res = {stocks: {}}
     stocks_data = JSON.parse(@stock_json)
-    res[:unmatched_symbols] = stocks_data['quotes']['unmatched_symbols']['symbol'] if stocks_data['quotes']['unmatched_symbols']
+    if stocks_data['quotes']['unmatched_symbols']
+      res[:unmatched_symbols] = stocks_data['quotes']['unmatched_symbols']['symbol']
+      res[:errors] = true
+      res[:error_message] = 'Ticker not found'
+    end
     stocks_props = stocks_data['quotes']['quote']
     return res unless stocks_props
 

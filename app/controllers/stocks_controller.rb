@@ -8,12 +8,13 @@ class StocksController < ApplicationController
   def get_quote
     @ticker = params[:ticker]
     return unless @ticker
+    return redirect_to '/stocks/get_quote', alert: 'Ticker field is empty' if @ticker&.empty?
 
     stocks_with_metadata = Stock.get_and_create_stock(@ticker)
 
-    return @not_found = true if stocks_with_metadata&.dig(:data, :unmatched_symbols)
-
-    return @error_message = stocks_with_metadata&.dig(:data, :error_message) if stocks_with_metadata&.dig(:data, :error)
+    if stocks_with_metadata&.dig(:data, :errors)
+      return redirect_to '/stocks/get_quote', alert: stocks_with_metadata&.dig(:data, :error_message)
+    end
 
     @stock_props = stocks_with_metadata[:data][:stocks].first[1]
 
