@@ -1,0 +1,23 @@
+- if @deals.any?
+  .row.justify-content-center
+    .col-3.h3 Your deals
+  table.table.table-striped.table-primary
+    thead
+      tr
+        th Ticker
+        th Time
+        th Direction
+        th Price
+        th Volume
+        th Amount
+    tbody
+      - @deals.each do |deal| 
+        tr
+          td = deal.stock.ticker
+          td = deal.created_at.strftime('%F %R:%S')
+          td = deal.direction
+          td = deal.price
+          td = deal.volume
+          td = deal.amount
+- else 
+  h3 You haven't made a single deal yet

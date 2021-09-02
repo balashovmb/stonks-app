@@ -2,6 +2,7 @@
 p = "Free cash: #{money_format(@portfolio_report[:cash])}"
 p = "Portfolio value: #{money_format(@portfolio_report[:value])}"
 p = "Financial result: #{money_format(@portfolio_report[:financial_result])}"
+p = link_to "All deals", deals_path
 .border-top.border-primary.mt-2
 .mt-2.h3 Positions
 table.table.table-striped.table-primary

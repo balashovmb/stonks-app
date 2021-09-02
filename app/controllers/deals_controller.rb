@@ -16,6 +16,10 @@ class DealsController < ApplicationController
     end
   end
 
+  def index
+    @deals = current_user.portfolio.deals.includes(:stock)
+  end
+
   private
 
   def deal_params

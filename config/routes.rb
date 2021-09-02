@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     get :get_quote, on: :collection
   end
 
-  resources :deals, only: [:create, :show]
+  resources :deals, only: [:create, :show, :index]
 
   resource :portfolio, only: :show do
     patch :get_or_add_cash
