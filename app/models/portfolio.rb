@@ -10,6 +10,7 @@ class Portfolio < ApplicationRecord
     summ_in_cent = Money::ConvertToStorageFormat.call(summ)
     operation = params[:operation]
     return { success: false, message: 'Please select the operation' } unless operation
+    return { success: false, message: 'Please input positive amount' } unless summ > 0
 
     case operation
     when 'deposite'

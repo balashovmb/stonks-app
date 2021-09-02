@@ -15,6 +15,27 @@ feature 'Change cash wolume', '
     end
   end
 
+  context 'user don\t input amount' do
+    scenario 'shows error message' do
+      sign_in(user)
+      click_on 'Portfolio'
+      choose 'operation_deposite'
+      click_on 'Make operation'
+      expect(page).to have_content('Please input positive amount')
+    end
+  end
+
+  context 'user inputs negative amount' do
+    scenario 'shows error message' do
+      sign_in(user)
+      click_on 'Portfolio'
+      choose 'operation_deposite'
+      fill_in 'Summ', with: '-1000'
+      click_on 'Make operation'
+      expect(page).to have_content('Please input positive amount')
+    end
+  end
+
   scenario 'user adds cash' do
     sign_in(user)
     click_on 'Portfolio'
