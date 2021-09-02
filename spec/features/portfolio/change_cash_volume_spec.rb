@@ -5,6 +5,16 @@ feature 'Change cash wolume', '
 ' do
   given(:user) { create(:user) }
 
+  context 'user don\t select operation' do
+    scenario 'shows error message' do
+      sign_in(user)
+      click_on 'Portfolio'
+      fill_in 'Summ', with: '1000'
+      click_on 'Make operation'
+      expect(page).to have_content('Please select the operation')
+    end
+  end
+
   scenario 'user adds cash' do
     sign_in(user)
     click_on 'Portfolio'

@@ -4,7 +4,12 @@ class PortfoliosController < ApplicationController
   end
 
   def get_or_add_cash
-    message = current_user.portfolio.get_or_add_cash(params)[:message]
-    redirect_to '/portfolio', notice: message
+    result = current_user.portfolio.get_or_add_cash(params)
+    message = if result[:success]
+                { notice: result[:message] }
+              else
+                { alert: result[:message] }
+              end
+    redirect_to '/portfolio', message
   end
 end

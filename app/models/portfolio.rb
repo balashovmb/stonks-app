@@ -8,7 +8,10 @@ class Portfolio < ApplicationRecord
   def get_or_add_cash(params)
     summ = params[:summ].to_f
     summ_in_cent = Money::ConvertToStorageFormat.call(summ)
-    case params[:operation]
+    operation = params[:operation]
+    return { success: false, message: 'Please select the operation' } unless operation
+
+    case operation
     when 'deposite'
       update(cash: self.cash += summ_in_cent)
       { success: true, message: "You added #{summ} $ to deposite" }
