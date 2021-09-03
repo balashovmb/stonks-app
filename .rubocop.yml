@@ -1,21 +1,21 @@
+require:
+  - rubocop-rspec
+  - rubocop-rails
+
 AllCops:
   Exclude:
-    - 'bin/**/*'
-    - 'config/**/*'
-    - 'db/**/*'
-    - Gemfile
-    - 'spec/rails_helper.rb'
-    - 'spec/spec_helper.rb'
-    - 'spec/acceptance/acceptance_helper.rb'
-    - 'tmp/**/*'
-    - 'public/**/*'
-    - 'app/indices/*'        
+    - "bin/**/*"
+    - "config/**/*"
+    - "db/**/*"
+    - "spec/rails_helper.rb"
+    - "spec/spec_helper.rb"
+    - "spec/acceptance/acceptance_helper.rb"
+    - "tmp/**/*"
+    - "public/**/*"
+    - "app/indices/*"
+    - "node_modules/**/*"
   DisplayCopNames: true
 
-
-# > Limit lines to 80 characters.
-# How did we get here?
-# Github's code views fit 101 character without horizontal scrolling
 Layout/LineLength:
   Max: 101
 
@@ -34,3 +34,14 @@ Style/PercentLiteralDelimiters:
 Metrics/BlockLength:
   Enabled: false
 
+Style/NumericLiterals:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+RSpec/Capybara/FeatureMethods:
+  Enabled: false
+
+RSpec/DescribedClass:
+  Enabled: false

@@ -9,7 +9,7 @@ class Portfolio::GetOrAddCash < Service
     summ_in_cent = Money::ConvertToStorageFormat.call(summ)
     operation = @params[:operation]
     return { success: false, message: 'Please select the operation' } unless operation
-    return { success: false, message: 'Please input positive amount' } unless summ > 0
+    return { success: false, message: 'Please input positive amount' } unless summ.positive?
 
     case operation
     when 'deposite'
@@ -17,7 +17,9 @@ class Portfolio::GetOrAddCash < Service
       @portfolio.update(cash: new_cash)
       { success: true, message: "You added #{summ} $ to deposite" }
     when 'widthdraw'
-      return { success: false, message: "You don't have that much cash" } if @portfolio.cash < summ_in_cent
+      if @portfolio.cash < summ_in_cent
+        return { success: false, message: "You don't have that much cash" }
+      end
 
       new_cash = @portfolio.cash - summ_in_cent
       { success: true, message: "You have withdrawn #{summ} $" } if @portfolio.update(cash: new_cash)

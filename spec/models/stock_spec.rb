@@ -1,21 +1,26 @@
 require 'rails_helper'
 
 RSpec.describe Stock, type: :model do
-  it { should validate_presence_of(:ticker) }
+  it { is_expected.to validate_presence_of(:ticker) }
 
   describe '.get_and_create_stock' do
     context 'existed stock' do
-      let(:stock_json) { File.read("#{Rails.root}/spec/data/stock.json") }
+      let(:stock_json) { File.read(Rails.root.join('spec/data/stock.json')) }
+
       it 'creates stock' do
-        allow(Stock::FetchData).to receive(:call).and_return({ stock_json: stock_json, status: 200, source: 'tradier' })
-        expect { Stock.get_and_create_stock('AAPL') }.to change { Stock.count }.by(1)
+        allow(Stock::FetchData).to receive(:call).and_return({ stock_json: stock_json, status: 200,
+                                                               source: 'tradier' })
+        expect { Stock.get_and_create_stock('AAPL') }.to change(Stock, :count).by(1)
       end
     end
+
     context 'unknown ticker' do
       let(:stock_json) { '{"quotes":{"unmatched_symbols":{"symbol":"WRONGSYMBOL"}}}' }
+
       it 'don\'t creates stock' do
-        allow(Stock::FetchData).to receive(:call).and_return({ stock_json: stock_json, status: 200, source: 'tradier' })
-        expect { Stock.get_and_create_stock('WRONGSYMBOL') }.not_to change { Stock.count }
+        allow(Stock::FetchData).to receive(:call).and_return({ stock_json: stock_json, status: 200,
+                                                               source: 'tradier' })
+        expect { Stock.get_and_create_stock('WRONGSYMBOL') }.not_to change(Stock, :count)
       end
     end
   end

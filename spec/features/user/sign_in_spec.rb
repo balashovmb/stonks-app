@@ -5,14 +5,13 @@ feature 'User sign in', %q{
   As an user
   I want to be able to sign in
 } do
-
   given(:user) { create(:user) }
 
   scenario 'Registred user try to sign in' do
     sign_in(user)
 
     expect(page).to have_content 'Signed in successfully.'
-    expect(current_path).to eq root_path
+    expect(page).to have_current_path root_path, ignore_query: true
   end
 
   scenario 'Non-registred user try to sign in' do
@@ -22,6 +21,6 @@ feature 'User sign in', %q{
     click_on 'Log in'
 
     expect(page).to have_content 'Invalid Email or password.'
-    expect(current_path).to eq new_user_session_path
+    expect(page).to have_current_path new_user_session_path, ignore_query: true
   end
 end

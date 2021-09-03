@@ -26,7 +26,8 @@ class Portfolio::CreateReport < Service
 
   def trade_positions_dynamics(trade_positions, stocks)
     stocks.keys.map do |ticker|
-      current_position = trade_positions.includes(:stock).find_by(stock: { ticker: ticker.to_s.upcase })
+      current_position = trade_positions.includes(:stock)
+                                        .find_by(stock: { ticker: ticker.to_s.upcase })
       generate_position_props(current_position, stocks[ticker])
     end
   end
@@ -35,7 +36,7 @@ class Portfolio::CreateReport < Service
     average_price = current_position.average_price
     current_price = stock[:current_price]
     financial_result = (current_price - average_price) * current_position.volume
-    financial_result = -financial_result if current_position.direction == 'short'
+    financial_result *= -1 if current_position.direction == 'short'
     {
       ticker: stock[:ticker],
       direction: current_position.direction,

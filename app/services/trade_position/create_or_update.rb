@@ -6,7 +6,13 @@ class TradePosition::CreateOrUpdate < Service
   def call
     trade_position = @deal.portfolio.trade_positions.find_by(stock_id: @deal.stock_id)
     if !trade_position
-      TradePosition.create(direction: @deal.direction, stock: @deal.stock, average_price: @deal.price, portfolio: @deal.portfolio, volume: @deal.volume)
+      TradePosition.create(
+        direction: @deal.direction,
+        stock: @deal.stock,
+        average_price: @deal.price,
+        portfolio: @deal.portfolio,
+        volume: @deal.volume
+      )
     else
       update_trade_position(trade_position)
     end

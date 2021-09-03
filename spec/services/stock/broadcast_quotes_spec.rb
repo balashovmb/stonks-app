@@ -3,9 +3,11 @@ require 'rails_helper'
 describe Stock::BroadcastQuotes do
   include ActionCable::TestHelper
   let(:subject) { described_class.call('AAPL') }
-  let(:stock_json) { File.read("#{Rails.root}/spec/data/stock.json") }
+  let(:stock_json) { File.read(Rails.root.join('spec/data/stock.json')) }
+
   before do
-    allow(Stock::FetchData).to receive(:call).and_return({ stock_json: stock_json, status: 200, source: 'tradier' })
+    allow(Stock::FetchData).to receive(:call).and_return({ stock_json: stock_json, status: 200,
+                                                           source: 'tradier' })
   end
 
   it 'broadcasts quote' do

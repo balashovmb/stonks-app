@@ -4,10 +4,14 @@ require 'json'
 feature 'Portfolio report', '
   User can see portfolio report on portfolio page
 ' do
-  given(:stock_json) { File.read("#{Rails.root}/spec/data/stock.json") }
+  given(:stock_json) { File.read(Rails.root.join('spec/data/stock.json')) }
   given(:portfolio) { create(:portfolio) }
   given!(:deal) { create(:deal, portfolio: portfolio) }
-  before { allow(Stock::FetchData).to receive(:call).and_return({ stock_json: stock_json, status: 200, source: 'tradier' }) }
+  before do
+    allow(Stock::FetchData).to receive(:call).and_return({ stock_json: stock_json,
+                                                           status: 200,
+                                                           source: 'tradier' })
+  end
 
   scenario 'one stock' do
     sign_in(portfolio.user)

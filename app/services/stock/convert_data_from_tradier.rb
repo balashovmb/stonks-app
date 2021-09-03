@@ -6,7 +6,7 @@ class Stock::ConvertDataFromTradier < Service
   end
 
   def call
-    res = {stocks: {}}
+    res = { stocks: {} }
     stocks_data = JSON.parse(@stock_json)
     if stocks_data['quotes']['unmatched_symbols']
       res[:unmatched_symbols] = stocks_data['quotes']['unmatched_symbols']['symbol']

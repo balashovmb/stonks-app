@@ -5,7 +5,9 @@ class Stock::Get < Service
 
   def call
     return { errors: true, error_message: 'Ticker field is empty' } if @ticker.empty?
-    return { errors: true, error_message: 'Ticker must consist of Latin characters' } if find_non_latin
+    if find_non_latin
+      return { errors: true, error_message: 'Ticker must consist of Latin characters' }
+    end
 
     data = Stock::FetchData.call(@ticker)
     Stock::ConvertData.call(data)
