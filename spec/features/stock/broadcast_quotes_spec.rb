@@ -1,9 +1,8 @@
 require 'rails_helper'
 require 'json'
 
-feature 'Get quote', '
-  Any user see recent stock quotes
-  on app page
+feature 'Broadcast quotes', '
+  The user can see the updated quotes without an update request
 ' do
   context 'Existing ticker' do
     given(:stock_json) { File.read(Rails.root.join('spec/data/stock.json')) }

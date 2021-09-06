@@ -13,7 +13,7 @@ class Deal < ApplicationRecord
   after_create { TradePosition::CreateOrUpdate.call(self) }
 
   def enough_cash
-    errors.add(:cash, 'Not enough cash') if portfolio.cash < amount
+    errors.add(:_, 'Not enough cash') if portfolio.cash < amount
   end
 
   def checkout

@@ -12,6 +12,10 @@ module Measureable
   end
 
   def amount
-    volume * price
+    if volume && price
+      volume * price
+    else
+      0
+    end
   end
 end

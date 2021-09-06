@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 feature 'Deals list', '
-  User can see list of all his deals
+  The user can see a list of all his deals
 ' do
   context 'deals exists' do
     given(:portfolio) { create(:portfolio) }

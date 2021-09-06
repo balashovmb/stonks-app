@@ -1,5 +1,5 @@
-<ul>
+<ul class='mt-2 alert alert-danger'>
   <% resource.errors.full_messages.each do |message| %>
-    <li><%= message %></li>
+    <li><%= message.lstrip %></li>
   <% end %>
 </ul>

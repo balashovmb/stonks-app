@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-feature 'Quotes list', '
-  Any user can see list of popular quotes
+feature 'Stocks list', '
+  Any user can see the list of popular stocks
 ' do
   given!(:quote) { create(:stock, ticker: 'AAPL') }
   given!(:quote2) { create(:stock, ticker: 'AZZ') }

@@ -31,3 +31,16 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    attributes:
+      deal:
+        direction: ""
+        volume: ""
+    errors:
+      models:
+        deal:
+          attributes:
+            direction:
+              inclusion: "Please select direction"
+            volume:
+              not_a_number: "Please enter the number of stocks"

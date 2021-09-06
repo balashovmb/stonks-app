@@ -17,7 +17,7 @@ feature 'Show trade position', '
       sign_in(portfolio.user)
       click_on 'Portfolio'
 
-      expect(page).to have_content('AAPL')
+      expect(page).to have_content('AAPLlong19.99 $9.99 $124.61 $114.62 $1147.35')
     end
   end
 end

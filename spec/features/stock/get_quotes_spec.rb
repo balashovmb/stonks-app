@@ -2,8 +2,8 @@ require 'rails_helper'
 require 'json'
 
 feature 'Get quote', '
-  Any user get current stock quotes
-  on app page
+  Any user gets the current stock quotes
+  on the app page
 ' do
   context 'Existing ticker' do
     given(:stock_json) { File.read(Rails.root.join('spec/data/stock.json')) }
