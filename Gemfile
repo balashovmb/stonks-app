@@ -25,6 +25,12 @@ group :development, :test do
 end
 
 group :development do
+  gem 'capistrano', require: false
+  gem 'capistrano3-unicorn', require: false
+  gem 'capistrano-bundler', require: false
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rvm', require: false
+  gem 'capistrano-sidekiq', require: false
   gem 'listen', '~> 3.3'
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'spring'
