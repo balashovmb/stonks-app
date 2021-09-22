@@ -7,7 +7,7 @@ set :branch, ENV['BRANCH'] if ENV['BRANCH']
 set :deploy_user, 'deployer'
 set :deploy_to, "/home/deployer/stonks-app"
 
-append :linked_files, "config/master.key", "config/database.yml", "config/credentials.yml.enc"
+append :linked_files, "config/master.key", "config/database.yml", "config/.env"  #"config/credentials.yml.enc"
 append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system", "vendor/bundle"
 
 # Default branch is :master
