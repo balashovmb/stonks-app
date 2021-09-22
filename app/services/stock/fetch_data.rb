@@ -12,7 +12,7 @@ class Stock::FetchData < Service
     http.use_ssl = true
 
     request = Net::HTTP::Get.new(url)
-    request['Authorization'] = "Bearer #{ENV["tradier_token"]}"
+    request['Authorization'] = "Bearer #{ENV["TRADIER_TOKEN"]}"
     request['Accept'] = 'application/json'
 
     result = http.request(request)
