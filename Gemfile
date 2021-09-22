@@ -15,6 +15,7 @@ gem 'slim-rails'
 gem 'stimulus_reflex', '~> 3.4'
 gem 'turbolinks', '~> 5'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'unicorn'
 gem 'webpacker', '~> 5.0'
 gem 'whenever', require: false
 
