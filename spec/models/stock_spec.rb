@@ -23,6 +23,15 @@ RSpec.describe Stock, type: :model do
         expect { Stock.get_and_create_stock('WRONGSYMBOL') }.not_to change(Stock, :count)
       end
     end
+    context 'cyrillic ticker' do
+      let(:stock_json) { '{"quotes":{"unmatched_symbols":{"symbol":"ЯНДЕКС"}}}' }
+
+      it 'don\'t creates stock' do
+        allow(Stock::FetchData).to receive(:call).and_return({ stock_json: stock_json, status: 200,
+                                                               source: 'tradier' })
+        expect { Stock.get_and_create_stock('ЯНДЕКС') }.not_to change(Stock, :count)
+      end
+    end
   end
 
   describe '.get_stock_data' do

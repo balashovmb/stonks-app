@@ -14,6 +14,7 @@ class Stock::ConvertDataFromTradier < Service
       res[:error_message] = 'Ticker not found'
     end
     stocks_props = stocks_data['quotes']['quote']
+
     return res unless stocks_props
 
     if stocks_props.class.to_s == 'Hash'
