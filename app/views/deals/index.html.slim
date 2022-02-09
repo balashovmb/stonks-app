@@ -16,8 +16,8 @@
           td = deal.stock.ticker
           td = deal.created_at.strftime('%F %R:%S')
           td = deal.direction
-          td = deal.price
+          td = money_format(deal.price, without_currency_sign: true)
           td = deal.volume
-          td = deal.amount
+          td = money_format(deal.amount, without_currency_sign: true)
 - else 
   h3 You haven't made a single deal yet
