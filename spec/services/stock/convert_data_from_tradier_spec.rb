@@ -13,7 +13,8 @@ describe Stock::ConvertDataFromTradier do
         aapl: {
           ticker: 'AAPL',
           description: 'Apple Inc',
-          current_price: 12461
+          current_price: 12461,
+          stock_object: Stock.first
         }
       }
     )
@@ -25,9 +26,10 @@ describe Stock::ConvertDataFromTradier do
         aapl: {
           ticker: 'AAPL',
           description: 'Apple Inc',
-          current_price: 12461
+          current_price: 12461,
+          stock_object: Stock.first
         },
-        azz: { description: 'AZZ Inc', current_price: 5349, ticker: 'AZZ' }
+        azz: { description: 'AZZ Inc', current_price: 5349, ticker: 'AZZ', stock_object: Stock.last }
       }
     )
   end

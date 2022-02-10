@@ -31,10 +31,12 @@ class Stock::ConvertDataFromTradier < Service
 
   def stock_props_to_hash(stock)
     ticker = stock['symbol']
+    stock_object = Stock.find_or_create_by(ticker: ticker.upcase)
     { ticker.downcase.to_sym => {
       ticker: ticker,
       description: stock['description'],
-      current_price: Money::ConvertToStorageFormat.call(stock['last'])
+      current_price: Money::ConvertToStorageFormat.call(stock['last']),
+      stock_object: stock_object
     } }
   end
 end

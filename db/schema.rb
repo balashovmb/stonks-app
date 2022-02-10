@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_06_064337) do
+ActiveRecord::Schema.define(version: 2022_02_09_062148) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 2021_09_06_064337) do
     t.bigint "portfolio_id", null: false
     t.index ["portfolio_id"], name: "index_deals_on_portfolio_id"
     t.index ["stock_id"], name: "index_deals_on_stock_id"
+  end
+
+  create_table "favorite_stocks", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "stock_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["stock_id"], name: "index_favorite_stocks_on_stock_id"
+    t.index ["user_id", "stock_id"], name: "index_favorite_stocks_on_user_id_and_stock_id", unique: true
+    t.index ["user_id"], name: "index_favorite_stocks_on_user_id"
   end
 
   create_table "portfolios", force: :cascade do |t|
@@ -75,6 +85,8 @@ ActiveRecord::Schema.define(version: 2021_09_06_064337) do
 
   add_foreign_key "deals", "portfolios"
   add_foreign_key "deals", "stocks"
+  add_foreign_key "favorite_stocks", "stocks"
+  add_foreign_key "favorite_stocks", "users"
   add_foreign_key "portfolios", "users"
   add_foreign_key "trade_positions", "portfolios"
   add_foreign_key "trade_positions", "stocks"

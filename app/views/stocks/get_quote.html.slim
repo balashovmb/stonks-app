@@ -1,43 +1,56 @@
-- if @not_found
-  p = "Unknown ticker: #{@ticker}"
-= @error_message
-
-.mt-3 = form_with url: get_quote_stocks_path, method: :get do |f|
-  .row.align-items-center
-    .col-1
-      = f.label :ticker, 'Ticker', class: 'form-label'
-    .col-3
-      = f.text_field :ticker, class: 'form-control'
-    .col-1
-      = f.submit 'Get quote', class: 'btn btn-primary'
-
-- if @stock_props
+.container
   .border-top.border-primary.mt-3
-    p.pt-2#current_ticker data-ticker= "#{@stock_props[:ticker]}" = "Ticker: #{@stock_props[:ticker]}"
-    p = "Company:  #{@stock_props[:description]}"
-    p#quote = "Current price: #{money_format(@stock_props[:current_price])}"
+  .row.justify-content-start
+    .col-6
+      .mt-3 = form_with url: get_quote_stocks_path, method: :get do |f|
+        .row.align-items-center
+          .col-1
+            = f.label :ticker, 'Ticker', class: 'form-label'
+          .col-3
+            = f.text_field :ticker, class: 'form-control'
+          .col-1
+            = f.submit 'Get quote', class: 'btn btn-primary'
 
-- if @stock_props && user_signed_in?
-  .border-top.border-primary.mt-3
-  .quote_errors
-  #deals
-  .pt-2 Make a deal
-  .mt-2 = form_with(model: @deal, id: "new-deal", local: false) do |f|
-    = f.hidden_field :price, value: money_format(@stock_props[:current_price])
-    = f.hidden_field :stock_id, value: @deal.stock.id
-    .row
-      .col-1
-        .form-check
-          = f.radio_button :direction, "long", class: "form-check-input"
-          = f.label :direction, "Long", :value => 'long', class: "form-check-label"
-      .col-1
-        .form-check
-          = f.radio_button :direction, "short", class: "form-check-input"
-          = f.label :direction, "Short", :value => 'short', class: "form-check-label"
-    .mt-2.row.align-items-center
-      .col-2
-        = f.text_field :volume, class: 'form-control'
-      .col-1
-        = f.label :volume, 'Volume', class: 'form-label'
-    .mt-3
-      = f.submit "Make a deal", class: "btn btn-success"
+      - if @not_found
+        p = "Unknown ticker: #{@ticker}"
+      = @error_message
+
+      - if @stock_props
+        .border-top.border-primary.mt-3
+          .row.justify-content-start.mt-3
+            .col-4
+              p.pt-2#current_ticker data-ticker= "#{@stock_props[:ticker]}" = "Ticker: #{@stock_props[:ticker]}"
+            .col-8
+              = render partial: "favorite_stocks/favorite_button", locals: {stock_id: @stock_props[:stock_object][:id]}
+          p = "Company:  #{@stock_props[:description]}"
+          p#quote = "Current price: #{money_format(@stock_props[:current_price])}"
+      - if @stock_props && user_signed_in?
+        .border-top.border-primary.mt-3
+        .quote_errors
+
+        .pt-2 Make a deal
+        .mt-2 = form_with(model: @deal, id: "new-deal", local: false) do |f|
+          = f.hidden_field :price, value: money_format(@stock_props[:current_price])
+          = f.hidden_field :stock_id, value: @deal.stock.id
+          .row
+            .col-2
+              .form-check
+                = f.radio_button :direction, "long", class: "form-check-input"
+                = f.label :direction, "Long", :value => 'long', class: "form-check-label"
+            .col-2
+              .form-check
+                = f.radio_button :direction, "short", class: "form-check-input"
+                = f.label :direction, "Short", :value => 'short', class: "form-check-label"
+          .mt-2.row.align-items-center
+            .col-4
+              = f.text_field :volume, class: 'form-control'
+            .col-1
+              = f.label :volume, 'Volume', class: 'form-label'
+          .mt-3
+            = f.submit "Make a deal", class: "btn btn-success"
+          .border-top.border-primary.mt-3
+        .mt-3#deals
+    .col-6.mt-3
+      - if @stocks
+        .h2 Favorite stocks
+        = render partial: "stocks/stocks_list", locals: {stocks: @stocks}

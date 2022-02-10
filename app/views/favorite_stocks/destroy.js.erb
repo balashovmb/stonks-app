@@ -1,0 +1,1 @@
+document.querySelectorAll("[data-favorite-stock-btn-id='<%=@stock_id%>']").forEach((n)=> n.parentElement.outerHTML = `<%= j render partial: "add_button", locals: {stock_id: @stock_id} %>`)

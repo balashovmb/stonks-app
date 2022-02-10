@@ -1,18 +1,6 @@
 - if @stocks
-  .col-6.mt-2
-    table.table.table-striped.table-primary
-      thead
-        tr
-          th Ticker
-          th Company
-          th Quote
-      tbody
-        - @stocks.each_pair do |_, stock|
-          tr
-            - ticker = stock[:ticker]
-            td = link_to ticker, get_quote_stocks_path(ticker: ticker)
-            td = stock[:description]
-            td = money_format(stock[:current_price])
+  .col-8.mt-2
+    = render partial: "stocks/stocks_list", locals: {stocks: @stocks}
 - else
   'Stocks list are empty
 end

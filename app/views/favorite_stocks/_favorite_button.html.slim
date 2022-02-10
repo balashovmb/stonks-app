@@ -1,0 +1,5 @@
+- if user_signed_in?
+  - if !current_user.favorite_stocks.find_by(stock_id: stock_id)
+    = render partial: "favorite_stocks/add_button", locals: {stock_id: stock_id}
+  - else
+    = render partial: "favorite_stocks/remove_button", locals: {stock_id: stock_id}

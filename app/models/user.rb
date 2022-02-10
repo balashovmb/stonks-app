@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_one :portfolio
+  has_many :favorite_stocks, dependent: :destroy
 
   after_create :create_portfolio
 
