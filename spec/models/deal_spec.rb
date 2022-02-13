@@ -31,7 +31,7 @@ RSpec.describe Deal, type: :model do
     end
 
     context 'second deal with same stock' do
-      context 'deal size eq stock position size' do
+      context 'deal size equals stock position size' do
         let(:oposite_deal) { build(:deal, portfolio: portfolio, stock: stock, direction: 'short') }
 
         it 'deletes TradePosition ' do
@@ -52,10 +52,12 @@ RSpec.describe Deal, type: :model do
       end
 
       context 'deal size more then the stock position size' do
-        let!(:deal) { create(:deal, portfolio: portfolio, stock: stock, volume: 1) }
+        let(:deal) { create(:deal, portfolio: portfolio, stock: stock, volume: 1) }
         let(:oposite_deal) do
           build(:deal, portfolio: portfolio, stock: stock, direction: 'short', volume: 3)
         end
+
+        before { deal }
 
         it 'changes TradePosition direction' do
           expect { oposite_deal.save }.to change {

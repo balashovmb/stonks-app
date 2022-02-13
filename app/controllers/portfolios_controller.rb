@@ -1,4 +1,6 @@
 class PortfoliosController < ApplicationController
+  before_action :authenticate_user!, only: %i[show get_or_add_cash]
+
   def show
     @portfolio_report = Portfolio::CreateReport.call(current_user.portfolio)
   end

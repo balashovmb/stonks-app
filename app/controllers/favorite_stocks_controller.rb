@@ -1,4 +1,6 @@
 class FavoriteStocksController < ApplicationController
+  before_action :authenticate_user!, only: %i[create destroy]
+
   def create
     @stock_id = params[:stock_id]
     current_user.favorite_stocks.create(stock_id: @stock_id)

@@ -5,22 +5,22 @@ feature 'Change cash wolume', '
 ' do
   given(:user) { create(:user) }
 
-  context 'user don\t select operation' do
+  context 'user don\'t select operation' do
     scenario 'shows error message' do
       sign_in(user)
       click_on 'Portfolio'
       fill_in 'Summ', with: '1000'
-      click_on 'Make operation'
+      click_on 'Execute operation'
       expect(page).to have_content('Please select the operation')
     end
   end
 
-  context 'user don\t input amount' do
+  context 'user don\'t input amount' do
     scenario 'shows error message' do
       sign_in(user)
       click_on 'Portfolio'
       choose 'operation_deposite'
-      click_on 'Make operation'
+      click_on 'Execute operation'
       expect(page).to have_content('Please input positive amount')
     end
   end
@@ -31,7 +31,7 @@ feature 'Change cash wolume', '
       click_on 'Portfolio'
       choose 'operation_deposite'
       fill_in 'Summ', with: '-1000'
-      click_on 'Make operation'
+      click_on 'Execute operation'
       expect(page).to have_content('Please input positive amount')
     end
   end
@@ -41,7 +41,7 @@ feature 'Change cash wolume', '
     click_on 'Portfolio'
     fill_in 'Summ', with: '1000'
     choose 'operation_deposite'
-    click_on 'Make operation'
+    click_on 'Execute operation'
     expect(page).to have_content('You added 1000.0 $')
   end
 
@@ -53,7 +53,7 @@ feature 'Change cash wolume', '
       click_on 'Portfolio'
       fill_in 'Summ', with: '1000'
       choose 'operation_widthdraw'
-      click_on 'Make operation'
+      click_on 'Execute operation'
       expect(page).to have_content('You have withdrawn 1000.0 $')
     end
 
@@ -62,7 +62,7 @@ feature 'Change cash wolume', '
       click_on 'Portfolio'
       fill_in 'Summ', with: '1000'
       choose 'operation_widthdraw'
-      click_on 'Make operation'
+      click_on 'Execute operation'
       expect(page).to have_content("You don't have that much cash")
     end
   end

@@ -14,17 +14,17 @@ class StocksController < ApplicationController
 
     @ticker = params[:ticker]
     return unless @ticker
-    return redirect_to '/stocks/trading', alert: 'Ticker field is empty' if @ticker&.empty?
 
-    stocks_with_metadata = Stock.get_and_create_stock(@ticker)
+    stock_with_metadata = Stock.get_and_create_stock(@ticker)
 
-    if stocks_with_metadata&.dig(:data, :errors)
-      return redirect_to '/stocks/trading', alert: stocks_with_metadata&.dig(:data, :error_message)
+    if stock_with_metadata&.dig(:data, :errors)
+      flash.now[:alert] = stock_with_metadata&.dig(:data, :error_message)
+      return render trading_stocks_path
     end
 
-    @stock_props = stocks_with_metadata[:data][:stocks].first[1]
+    @stock_props = stock_with_metadata&.dig(:data, :stocks)&.first&.last
 
-    stock = stocks_with_metadata[:stock]
+    stock = stock_with_metadata[:stock]
     @deal = stock.deals.new if stock
   end
 

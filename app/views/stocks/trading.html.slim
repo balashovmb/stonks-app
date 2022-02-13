@@ -28,7 +28,7 @@
         .border-top.border-primary.mt-3
         .quote_errors
 
-        .pt-2 Make a deal
+        .pt-2.h4 Deal
         .mt-2 = form_with(model: @deal, id: "new-deal", local: false) do |f|
           = f.hidden_field :price, value: money_format(@stock_props[:current_price])
           = f.hidden_field :stock_id, value: @deal.stock.id

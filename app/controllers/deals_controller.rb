@@ -1,5 +1,5 @@
 class DealsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[create index show]
 
   def show
     @deal = Deal.find(params[:id])

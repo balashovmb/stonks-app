@@ -1,7 +1,7 @@
 require 'rails_helper'
 require 'json'
 
-feature 'Create deal', '
+feature 'Make a deal', '
   A logged-in user can make a deal on the stock page
 ' do
   given(:stock_json) { File.read(Rails.root.join('spec/data/stock.json')) }
