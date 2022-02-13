@@ -14,7 +14,7 @@ feature 'Get quote', '
     end
 
     scenario 'gets quote' do
-      visit get_quote_stocks_path
+      visit trading_stocks_path
       fill_in 'Ticker', with: 'AAPL'
       click_on 'Get quote'
       expect(page).to have_content('124.61')
@@ -30,7 +30,7 @@ feature 'Get quote', '
     end
 
     scenario 'shows "unknown ticker" message' do
-      visit get_quote_stocks_path
+      visit trading_stocks_path
       fill_in 'Ticker', with: 'ASDFFF'
       click_on 'Get quote'
       expect(page).to have_content('Ticker not found')
@@ -39,7 +39,7 @@ feature 'Get quote', '
 
   context 'Non-latin chars in ticker' do
     scenario 'shows "Ticker must consist of Latin characters" message' do
-      visit get_quote_stocks_path
+      visit trading_stocks_path
       fill_in 'Ticker', with: 'ЯНДЕКС'
       click_on 'Get quote'
       expect(page).to have_content('Ticker must consist of Latin characters')
@@ -48,7 +48,7 @@ feature 'Get quote', '
 
   context 'Empty ticker' do
     scenario 'shows "Ticker field is empty" message' do
-      visit get_quote_stocks_path
+      visit trading_stocks_path
       fill_in 'Ticker', with: ''
       click_on 'Get quote'
       expect(page).to have_content('Ticker field is empty')

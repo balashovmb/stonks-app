@@ -2,7 +2,7 @@
   .border-top.border-primary.mt-3
   .row.justify-content-start
     .col-6
-      .mt-3 = form_with url: get_quote_stocks_path, method: :get do |f|
+      .mt-3 = form_with url: trading_stocks_path, method: :get do |f|
         .row.align-items-center
           .col-1
             = f.label :ticker, 'Ticker', class: 'form-label'

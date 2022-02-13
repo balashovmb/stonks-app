@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :stocks, only: [:index] do
-    get :get_quote, on: :collection
+    get :trading, on: :collection
   end
 
   resources :deals, only: [:create, :show, :index]

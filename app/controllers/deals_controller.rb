@@ -1,4 +1,6 @@
 class DealsController < ApplicationController
+  before_action :authenticate_user!
+
   def show
     @deal = Deal.find(params[:id])
   end

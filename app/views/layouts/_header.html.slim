@@ -10,7 +10,7 @@
             li.nav-item 
               .nav-link = link_to 'Popular stocks', stocks_path
             li.nav-item 
-              .nav-link = link_to 'Trading', get_quote_stocks_path
+              .nav-link = link_to 'Trading', trading_stocks_path
             - if user_signed_in?            
               li.nav-item 
                 .nav-link = link_to 'Portfolio', portfolio_path

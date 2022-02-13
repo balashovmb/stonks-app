@@ -16,7 +16,7 @@ feature 'Create deal', '
     before do
       sign_in(portfolio.user)
 
-      visit '/stocks/get_quote?ticker=aapl'
+      visit '/stocks/trading?ticker=aapl'
     end
 
     context 'enough cash' do
@@ -60,7 +60,7 @@ feature 'Create deal', '
 
   context 'Non logged in user' do
     before do
-      visit '/stocks/get_quote?ticker=aapl'
+      visit '/stocks/trading?ticker=aapl'
     end
 
     scenario 'don\'t see Deal button', js: true do

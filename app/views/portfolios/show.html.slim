@@ -21,7 +21,7 @@ table.table.table-striped.table-primary
       tr
         td
           - ticker = position[:ticker]
-          = link_to ticker, get_quote_stocks_path(ticker: ticker)
+          = link_to ticker, trading_stocks_path(ticker: ticker)
         td = position[:direction]
         td = position[:volume]
         td = money_format(position[:average_price])
