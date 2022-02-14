@@ -5,7 +5,7 @@ class Portfolio::CreateReport < Service
 
   def call
     report = { cash: @portfolio.cash, value: @portfolio.cash }
-    tickers = @portfolio.trade_positions.all.map { |position| position.stock.ticker }.sort.join(',')
+    tickers = @portfolio.trade_positions.includes(:stock).all.map { |position| position.stock.ticker }.sort.join(',')
     return report if tickers.empty?
 
     stocks_with_metadata = Stock::Get.call(tickers)
@@ -45,11 +45,11 @@ class Portfolio::CreateReport < Service
       average_price: average_price,
       current_price: current_price.to_i,
       financial_result: financial_result.to_i,
-      result_in_percent: percent(current_position.amount, financial_result).round(2)
+      result_in_percent: percent(current_position.amount, financial_result)
     }
   end
 
   def percent(full, part)
-    part / full.to_f * 100
+    (part / full.to_f * 100).round(2)
   end
 end

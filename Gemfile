@@ -26,6 +26,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'bullet'
   gem 'capistrano', require: false
   gem 'capistrano3-unicorn', require: false
   gem 'capistrano-bundler', require: false

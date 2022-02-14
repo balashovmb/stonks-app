@@ -1,6 +1,16 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  config.after_initialize do
+    Bullet.enable        = true
+    Bullet.alert         = false
+    Bullet.bullet_logger = false
+    Bullet.console       = true
+  # Bullet.growl         = true
+    Bullet.rails_logger  = true
+    Bullet.add_footer    = true
+  end
+
   config.session_store :cache_store, key: "_sessions_development", compress: true, pool_size: 5, expire_after: 1.year
 
   # Settings specified here will take precedence over those in config/application.rb.
