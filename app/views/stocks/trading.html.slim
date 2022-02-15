@@ -1,5 +1,4 @@
 .container
-  .border-top.border-primary.mt-3
   .row.justify-content-start
     .col-6
       .mt-3 = form_with url: trading_stocks_path, method: :get do |f|
@@ -25,11 +24,9 @@
           p = "Company:  #{@stock_props[:description]}"
           p#quote = "Current price: #{money_format(@stock_props[:current_price])}"
       - if @stock_props && user_signed_in?
-        .border-top.border-primary.mt-3
         .quote_errors
 
-        .pt-2.h4 Deal
-        .mt-2 = form_with(model: @deal, id: "new-deal", local: false) do |f|
+        = form_with(model: @deal, id: "new-deal", local: false) do |f|
           = f.hidden_field :price, value: money_format(@stock_props[:current_price])
           = f.hidden_field :stock_id, value: @deal.stock.id
           .row
@@ -50,6 +47,7 @@
             = f.submit "Make a deal", class: "btn btn-success"
           .border-top.border-primary.mt-3
         .mt-3#deals
+
     .col-6.mt-3
       - if @stocks
         .h2 Favorite stocks

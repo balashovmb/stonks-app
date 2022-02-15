@@ -1,6 +1,10 @@
-- if @stocks
-  .col-8.mt-2
-    = render partial: "stocks/stocks_list", locals: {stocks: @stocks}
-- else
-  'Stocks list are empty
-end
+.row
+  .col-8
+    - if @stocks
+      = render partial: "stocks/stocks_list", locals: {stocks: @stocks}
+    - else
+      'Stocks list are empty
+    end
+  .col-4
+    p Test user: user@test.com
+    p Password: 123456

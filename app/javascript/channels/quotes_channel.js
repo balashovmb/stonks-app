@@ -24,7 +24,6 @@ const quotes_channel = consumer.subscriptions.create("QuotesChannel", {
     }
   },
   installPageCallback() {
-    console.log("callback instal func");
     if (!this.installedPageCallback) {
       this.installedPageCallback = true;
       document.addEventListener(

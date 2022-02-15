@@ -1,24 +1,13 @@
-# README
+# StonksAPP
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### StonksAPP is my pet-project. A trading terminal simulator for the American stock market.
 
-Things you may want to cover:
+#### Technologies and principles used in this project:
 
-* Ruby version
+* TDD/BDD (Using Rspec, Capybara)
+* Getting data using the API(Source is tradier.com API)
+* Service objects
+* Background jobs (Using ActiveJob)
+* ActionCable, CableReady
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+#### App is deployed [here](http://stonks.balashov.net.ru/)

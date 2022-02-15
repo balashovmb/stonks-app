@@ -9,6 +9,7 @@ html
     = stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
     = action_cable_meta_tag
+    = favicon_pack_tag 'favicon.ico'
   body
     .container-xxl
       = render 'layouts/header'
@@ -17,3 +18,8 @@ html
       - if alert
         p.mt-2.alert.alert-danger = alert
       = yield
+      footer
+        .border-top.border-primary.mt-3
+        p.ps-3.pt-1
+          '&copy; Mikhail Balashov
+          = Time.now.year
