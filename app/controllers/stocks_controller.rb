@@ -1,14 +1,12 @@
 class StocksController < ApplicationController
   def index
-    tickers = Stock.all.map(&:ticker).sort.join(',')
+    tickers = Stock.pluck(:ticker).sort.join(',')
     @stocks = load_stocks_list(tickers)
   end
 
   def trading
     if current_user
-      tickers = current_user.favorite_stocks.includes(:stock).map do |fs|
-        fs.stock.ticker
-      end.sort.join(',')
+      tickers = current_user.favorite_stocks.joins(:stock).pluck(:ticker).sort.join(',')
       @stocks = load_stocks_list(tickers)
     end
 
