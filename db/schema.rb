@@ -10,10 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_09_062148) do
+ActiveRecord::Schema.define(version: 2022_02_18_112804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "daily_quotes", force: :cascade do |t|
+    t.bigint "stock_id", null: false
+    t.date "date", null: false
+    t.integer "low", null: false
+    t.integer "high", null: false
+    t.integer "open", null: false
+    t.integer "close", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["stock_id"], name: "index_daily_quotes_on_stock_id"
+  end
 
   create_table "deals", force: :cascade do |t|
     t.bigint "stock_id", null: false
@@ -83,6 +95,7 @@ ActiveRecord::Schema.define(version: 2022_02_09_062148) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "daily_quotes", "stocks"
   add_foreign_key "deals", "portfolios"
   add_foreign_key "deals", "stocks"
   add_foreign_key "favorite_stocks", "stocks"

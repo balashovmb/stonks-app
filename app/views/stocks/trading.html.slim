@@ -22,6 +22,8 @@
             .col-8
               = render partial: "favorite_stocks/favorite_button", locals: {stock_id: @stock_props[:stock_object][:id]}
           p = "Company:  #{@stock_props[:description]}"
+          - if @quotes.any?
+            = render partial: 'quotes/list', locals: {quotes: @quotes}
           p#quote = "Current price: #{money_format(@stock_props[:current_price])}"
       - if @stock_props && user_signed_in?
         .quote_errors

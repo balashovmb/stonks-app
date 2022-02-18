@@ -6,6 +6,16 @@ feature 'Make a deal', '
 ' do
   given(:stock_json) { File.read(Rails.root.join('spec/data/stock.json')) }
   given(:portfolio) { create(:portfolio) }
+  given(:stock) { create(:stock) }
+
+  before do
+    create(:daily_quote, date: (Time.zone.today - 1), stock: stock)
+    create(:daily_quote, date: (Time.zone.today - 2), stock: stock)
+    create(:daily_quote, date: (Time.zone.today - 3), stock: stock)
+    create(:daily_quote, date: (Time.zone.today - 4), stock: stock)
+    create(:daily_quote, date: (Time.zone.today - 5), stock: stock)
+  end
+
   before do
     allow(Stock::FetchData).to receive(:call).and_return({ stock_json: stock_json,
                                                            status: 200,
@@ -15,7 +25,6 @@ feature 'Make a deal', '
   context 'Logged in user' do
     before do
       sign_in(portfolio.user)
-
       visit '/stocks/trading?ticker=aapl'
     end
 
@@ -24,7 +33,6 @@ feature 'Make a deal', '
         fill_in 'Volume', with: '2'
         choose 'deal_direction_long'
         click_on 'Make a deal'
-
         expect(page).to have_content('direction: long, volume: 2, amount: 249.22 $')
         expect(page).to have_content('Cash: 9750.78 $')
       end

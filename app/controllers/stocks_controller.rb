@@ -23,7 +23,10 @@ class StocksController < ApplicationController
     @stock_props = stock_with_metadata&.dig(:data, :stocks)&.first&.last
 
     stock = stock_with_metadata[:stock]
-    @deal = stock.deals.new if stock
+    return unless stock
+
+    @deal = stock.deals.new
+    @quotes = DailyQuote::LoadOrCreate.call(stock)
   end
 
   private
