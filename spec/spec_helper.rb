@@ -94,4 +94,5 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
   config.example_status_persistence_file_path = "tmp/examples.txt"
+  config.filter_run_when_matching :focus
 end

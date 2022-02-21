@@ -46,5 +46,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
+  gem 'timecop'
   gem 'webdrivers'
+  gem 'webmock'
 end

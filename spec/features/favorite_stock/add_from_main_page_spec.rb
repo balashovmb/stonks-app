@@ -3,6 +3,7 @@ require 'rails_helper'
 feature 'A registered user
 can add a stock to favorites
 for ease of trading' do
+  include_context 'stub_api'
   given(:user) { create(:user) }
   given!(:stock) { create(:stock) }
   context 'from the popular stocks page' do

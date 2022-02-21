@@ -5,14 +5,8 @@ feature 'Get quote', '
   Any user gets the current stock quotes
   on the app page
 ' do
+  include_context 'stub_api'
   context 'Existing ticker' do
-    given(:stock_json) { File.read(Rails.root.join('spec/data/stock.json')) }
-    before do
-      allow(Stock::FetchData).to receive(:call).and_return({ stock_json: stock_json,
-                                                             status: 200,
-                                                             source: 'tradier' })
-    end
-
     scenario 'gets quote' do
       visit trading_stocks_path
       fill_in 'Ticker', with: 'AAPL'
@@ -22,13 +16,6 @@ feature 'Get quote', '
   end
 
   context 'Unknown ticker' do
-    given(:unknown_ticker_json) { File.read(Rails.root.join('spec/data/unknown_ticker.json')) }
-    before do
-      allow(Stock::FetchData).to receive(:call).and_return({ stock_json: unknown_ticker_json,
-                                                             status: 200,
-                                                             source: 'tradier' })
-    end
-
     scenario 'shows "unknown ticker" message' do
       visit trading_stocks_path
       fill_in 'Ticker', with: 'ASDFFF'

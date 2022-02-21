@@ -4,28 +4,15 @@ require 'json'
 feature 'Make a deal', '
   A logged-in user can make a deal on the stock page
 ' do
-  given(:stock_json) { File.read(Rails.root.join('spec/data/stock.json')) }
+  include_context 'stub_api'
   given(:portfolio) { create(:portfolio) }
   given(:stock) { create(:stock) }
 
-  before do
-    create(:daily_quote, date: (Time.zone.today - 1), stock: stock)
-    create(:daily_quote, date: (Time.zone.today - 2), stock: stock)
-    create(:daily_quote, date: (Time.zone.today - 3), stock: stock)
-    create(:daily_quote, date: (Time.zone.today - 4), stock: stock)
-    create(:daily_quote, date: (Time.zone.today - 5), stock: stock)
-  end
-
-  before do
-    allow(Stock::FetchData).to receive(:call).and_return({ stock_json: stock_json,
-                                                           status: 200,
-                                                           source: 'tradier' })
-  end
-
   context 'Logged in user' do
+
     before do
       sign_in(portfolio.user)
-      visit '/stocks/trading?ticker=aapl'
+      visit '/stocks/trading?ticker=AAPL'
     end
 
     context 'enough cash' do
@@ -68,7 +55,7 @@ feature 'Make a deal', '
 
   context 'Non logged in user' do
     before do
-      visit '/stocks/trading?ticker=aapl'
+      visit '/stocks/trading?ticker=AAPL'
     end
 
     scenario 'don\'t see Deal button', js: true do

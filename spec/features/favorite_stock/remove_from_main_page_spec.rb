@@ -3,6 +3,7 @@ require 'rails_helper'
 feature 'A registered user
 can remove a stock from favorites from the popular stocks page
 for ease of trading' do
+  include_context 'stub_api'
   given(:user) { create(:user) }
   given(:stock) { create(:stock) }
   given!(:favorite_stock) { create(:favorite_stock, stock: stock, user: user) }

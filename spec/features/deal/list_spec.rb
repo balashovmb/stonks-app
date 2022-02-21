@@ -3,6 +3,7 @@ require 'rails_helper'
 feature 'Deals list', '
   The user can see a list of all his deals
 ' do
+  include_context 'stub_api'
   context 'deals exists' do
     given(:portfolio) { create(:portfolio) }
     given!(:deal) { create(:deal, portfolio: portfolio, volume: 2) }
