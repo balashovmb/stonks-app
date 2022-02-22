@@ -48,6 +48,7 @@ group :test do
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
+  gem 'simplecov', require: false
   gem 'timecop'
   gem 'webdrivers'
   gem 'webmock'
