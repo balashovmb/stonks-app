@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2022_02_18_112804) do
     t.integer "close", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["stock_id", "date"], name: "index_daily_quotes_on_stock_id_and_date", unique: true
     t.index ["stock_id"], name: "index_daily_quotes_on_stock_id"
   end
 

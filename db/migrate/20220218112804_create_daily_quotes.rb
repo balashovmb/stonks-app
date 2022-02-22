@@ -10,5 +10,6 @@ class CreateDailyQuotes < ActiveRecord::Migration[6.1]
 
       t.timestamps
     end
+    add_index :daily_quotes, [:stock_id, :date], unique: true
   end
 end
