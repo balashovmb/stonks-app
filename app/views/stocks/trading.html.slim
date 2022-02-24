@@ -1,6 +1,6 @@
 .container
   .row.justify-content-start
-    .col-6
+    .col-9
       .mt-3 = form_with url: trading_stocks_path, method: :get do |f|
         .row.align-items-center
           .col-1
@@ -22,8 +22,8 @@
             .col-8
               = render partial: "favorite_stocks/favorite_button", locals: {stock_id: @stock_props[:stock_object][:id]}
           p = "Company:  #{@stock_props[:description]}"
-          - if @quotes.any?
-            = render partial: 'quotes/list', locals: {quotes: @quotes}
+          - if @quotes&.any?
+            = render partial: "stocks/stock_chart", locals: {stocks: @stocks}
           p#quote = "Current price: #{money_format(@stock_props[:current_price])}"
       - if @stock_props && user_signed_in?
         .quote_errors
@@ -50,7 +50,7 @@
           .border-top.border-primary.mt-3
         .mt-3#deals
 
-    .col-6.mt-3
+    .col-3.mt-3
       - if @stocks
         .h2 Favorite stocks
-        = render partial: "stocks/stocks_list", locals: {stocks: @stocks}
+        = render partial: "stocks/stocks_list", locals: {stocks: @stocks, with_name: false}

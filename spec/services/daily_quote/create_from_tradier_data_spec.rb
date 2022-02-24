@@ -7,6 +7,6 @@ describe DailyQuote::CreateFromTradierData do
   let(:subject) { described_class.call(daily_quotes_json: daily_quotes_json, stock: stock) }
 
   it 'converts one stock data from Tradier' do
-    expect {subject}.to change(DailyQuote, :count).by(5)
+    expect {subject}.to change(DailyQuote, :count).by(22)
   end
 end

@@ -8,6 +8,7 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import "deals"
+import "chartkick/chart.js"
 const images = require.context('../images', true)
 
 Rails.start()

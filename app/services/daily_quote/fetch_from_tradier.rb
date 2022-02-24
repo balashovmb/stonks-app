@@ -5,9 +5,8 @@ class DailyQuote::FetchFromTradier < Service
   def initialize(stock, options = {})
     @ticker = stock.ticker
     @stock = stock
-    today =  Time.zone.today
-    @start = options[:start] || (today - 8).to_s
-    @end = options[:end] || (today - 1).to_s
+    @start = options[:start]
+    @end = options[:end]
   end
 
   def call

@@ -1,7 +1,7 @@
 .row
   .col-8
     - if @stocks
-      = render partial: "stocks/stocks_list", locals: {stocks: @stocks}
+      = render partial: "stocks/stocks_list", locals: {stocks: @stocks, with_name: true}
     - else
       'Stocks list are empty
     end
