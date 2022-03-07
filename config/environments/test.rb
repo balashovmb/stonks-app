@@ -58,7 +58,7 @@ Rails.application.configure do
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
   config.after_initialize do
-    t = Time.local(2022, 2, 18, 5, 0, 0)
+    t = Time.local(2022, 2, 25, 5, 0, 0)
     Timecop.travel(t)
   end
 end

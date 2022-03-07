@@ -2,7 +2,7 @@ require 'uri'
 require 'net/http'
 
 class DailyQuote::FetchFromTradier < Service
-  def initialize(stock, options = {})
+  def initialize(stock, options)
     @ticker = stock.ticker
     @stock = stock
     @start = options[:start]

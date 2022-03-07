@@ -1,8 +1,8 @@
 class DailyQuote::LoadOrCreate < Service
   def initialize(stock, options = {})
     @stock = stock
-    @end = options[:end] || week_day_at_end
-    @start = options[:start] || week_day_at_start
+    @end = options[:end] || last_day
+    @start = options[:start] || first_day
     @options = options.merge(start: @start, end: @end)
   end
 
@@ -16,23 +16,31 @@ class DailyQuote::LoadOrCreate < Service
 
   private
 
+  def last_day
+    Time.zone.today.yesterday
+  end
+
+  def first_day
+    @end - 30
+  end
+
   def all_loaded?(loaded_quotes)
-    loaded_quotes.find_by(date: @start) && loaded_quotes.find_by(date: @end) # TODO: Need to improve
+    first_working_day_loaded?(loaded_quotes) && last_working_day_loaded?(loaded_quotes)
   end
 
-  def week_day_at_end
-    last_day = Time.zone.today.yesterday
-    return last_day.yesterday if last_day.saturday?
-    return last_day - 2 if last_day.sunday?
+  def first_working_day_loaded?(loaded_quotes)
+    return true if loaded_quotes.find_by(date: @start)
 
-    last_day
+    date = @start
+    date += 1 while NonWorkingDay.find_by(date: date)
+    loaded_quotes.find_by(date: date)
   end
 
-  def week_day_at_start
-    start = @end - 30
-    return start + 2 if start.saturday?
-    return start.tomorrow if start.sunday?
+  def last_working_day_loaded?(loaded_quotes)
+    return true if loaded_quotes.find_by(date: @end)
 
-    start
+    date = @end
+    date -= 1 while NonWorkingDay.find_by(date: date)
+    loaded_quotes.find_by(date: date)
   end
 end
