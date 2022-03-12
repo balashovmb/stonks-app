@@ -1,12 +1,13 @@
 class DealsController < ApplicationController
-  before_action :authenticate_user!, only: %i[create index show]
-
-  def show
-    @deal = Deal.find(params[:id])
-  end
+  before_action :authenticate_user!, only: %i[create index]
+  after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped, only: :index
 
   def create
     @deal = current_user.portfolio.deals.new(deal_params)
+
+    authorize @deal
+
     respond_to do |format|
       format.js
       if @deal.save
@@ -18,7 +19,7 @@ class DealsController < ApplicationController
   end
 
   def index
-    @deals = current_user.portfolio.deals.includes(:stock)
+    @deals = policy_scope(Deal).includes(:stock)
   end
 
   private

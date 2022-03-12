@@ -1,53 +1,54 @@
-.mt-2
-p = "Free cash: #{money_format(@portfolio_report[:cash])}"
-p = "Portfolio value: #{money_format(@portfolio_report[:value])}"
-p = "Financial result: #{money_format(@portfolio_report[:financial_result])}"
-p = link_to "All deals", deals_path
-.border-top.border-primary.mt-2
-.mt-2.h3 Positions
-table.table.table-striped.table-primary
-  thead
-    tr
-      th Ticker
-      th Direction
-      th Volume
-      th Average price
-      th Amount
-      th Current price
-      th Financial result
-      th Result in %
-  tbody
-    - @portfolio_report[:trade_positions_dynamics]&.each do |position|
+- if policy(current_user.portfolio).manage?
+  .mt-2
+  p = "Free cash: #{money_format(@portfolio_report[:cash])}"
+  p = "Portfolio value: #{money_format(@portfolio_report[:value])}"
+  p = "Financial result: #{money_format(@portfolio_report[:financial_result])}"
+  p = link_to "All deals", deals_path
+  .border-top.border-primary.mt-2
+  .mt-2.h3 Positions
+  table.table.table-striped.table-primary
+    thead
       tr
-        td
-          - ticker = position[:ticker]
-          = link_to ticker, trading_stocks_path(ticker: ticker)
-        td = position[:direction]
-        td = position[:volume]
-        td = money_format(position[:average_price])
-        td = money_format(position[:amount])
-        td = money_format(position[:current_price])
-        td = money_format(position[:financial_result])
-        td = position[:result_in_percent]
-.border-top.border-primary.mt-2
+        th Ticker
+        th Direction
+        th Volume
+        th Average price
+        th Amount
+        th Current price
+        th Financial result
+        th Result in %
+    tbody
+      - @portfolio_report[:trade_positions_dynamics]&.each do |position|
+        tr
+          td
+            - ticker = position[:ticker]
+            = link_to ticker, trading_stocks_path(ticker: ticker)
+          td = position[:direction]
+          td = position[:volume]
+          td = money_format(position[:average_price])
+          td = money_format(position[:amount])
+          td = money_format(position[:current_price])
+          td = money_format(position[:financial_result])
+          td = position[:result_in_percent]
+  .border-top.border-primary.mt-2
 
-.mt-2.h3 Cash operations
-= form_with url: get_or_add_cash_portfolio_path, method: :patch do |f|
-  .row.mt-2
-    .col-1
-      .form-check
-        = f.radio_button :operation, "deposite", class: "form-check-input"
-        = f.label :operation, "Deposite", :value => 'deposite', class: "form-check-label"
-    .col-1
-      .form-check
-        = f.radio_button :operation, "widthdraw", class: "form-check-input"
-        = f.label :operation, "Widthdraw", :value => 'widthdraw', class: "form-check-label"
-  .row.mt-2.align-items-center
-    .col-1
-      => f.label :summ, 'Summ', class: 'form-label'
-    .col-2
-      = f.text_field :summ, class: 'form-control form-control-sm'
-  .row.mt-3
-    .col-1
-    .col-1
-      = f.submit 'Execute operation', class: 'btn btn-primary  btn-sm'
+  .mt-2.h3 Cash operations
+  = form_with url: get_or_add_cash_portfolio_path, method: :patch do |f|
+    .row.mt-2
+      .col-1
+        .form-check
+          = f.radio_button :operation, "deposite", class: "form-check-input"
+          = f.label :operation, "Deposite", :value => 'deposite', class: "form-check-label"
+      .col-1
+        .form-check
+          = f.radio_button :operation, "widthdraw", class: "form-check-input"
+          = f.label :operation, "Widthdraw", :value => 'widthdraw', class: "form-check-label"
+    .row.mt-2.align-items-center
+      .col-1
+        => f.label :summ, 'Summ', class: 'form-label'
+      .col-2
+        = f.text_field :summ, class: 'form-control form-control-sm'
+    .row.mt-3
+      .col-1
+      .col-1
+        = f.submit 'Execute operation', class: 'btn btn-primary  btn-sm'

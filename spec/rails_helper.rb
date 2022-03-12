@@ -5,7 +5,8 @@ require File.expand_path('../config/environment', __dir__)
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
-require "webmock/rspec"
+require 'webmock/rspec'
+require 'pundit/rspec'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -75,4 +76,4 @@ RSpec.configure do |config|
   Capybara.javascript_driver = :selenium_chrome_headless
   config.include ActionCable::TestHelper
 end
-WebMock.disable_net_connect!(allow_localhost: true)
+WebMock.disable_net_connect!(allow_localhost: true, allow: 'https://chromedriver.storage.googleapis.com')
