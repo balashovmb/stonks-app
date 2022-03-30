@@ -19,7 +19,7 @@ class StocksController < ApplicationController
     @ticker = params[:ticker]
     return unless @ticker
 
-    stock_with_metadata = Stock.get_and_create_stock(@ticker)
+    stock_with_metadata = Stock::GetDataAndCreate.call(@ticker)
 
     if stock_with_metadata&.dig(:data, :errors)
       flash.now[:alert] = stock_with_metadata&.dig(:data, :error_message)

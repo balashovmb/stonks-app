@@ -7,7 +7,7 @@ class Stock::BroadcastQuotes < Service
   end
 
   def call
-    stock_data = Stock.get_stock_data(@ticker)
+    stock_data = Stock::Get.call(@ticker)
     quote = stock_data&.dig(:stocks, @ticker.downcase.to_sym, :current_price)
     return unless quote
 
