@@ -6,7 +6,5 @@ class TradePosition < ApplicationRecord
 
   validates :volume, numericality: { greater_than_or_equal_to: 0 }
 
-  def price
-    average_price
-  end
+  alias_attribute :price, :average_price
 end
