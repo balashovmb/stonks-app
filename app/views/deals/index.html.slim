@@ -11,7 +11,7 @@
         th Volume
         th Amount
     tbody
-      - @deals.each do |deal| 
+      - @deals.find_each do |deal|
         tr
           td = deal.stock.ticker
           td = deal.created_at.strftime('%F %R:%S')

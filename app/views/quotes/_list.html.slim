@@ -7,7 +7,7 @@ table.table.table-striped.table-primary
       th Low
       th Close
   tbody
-    - quotes.each do |quote|
+    - quotes.find_each do |quote|
       tr
         td = quote.date
         td = money_format(quote.open, without_currency_sign: true)
