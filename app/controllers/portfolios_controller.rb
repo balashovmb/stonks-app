@@ -9,9 +9,11 @@ class PortfoliosController < ApplicationController
   end
 
   def get_or_add_cash
-    authorize current_user.portfolio
+    portfolio = current_user.portfolio
 
-    result = current_user.portfolio.get_or_add_cash(params)
+    authorize portfolio
+
+    result = Portfolio::GetOrAddCash.call(portfolio, params)
     message = if result[:success]
                 { notice: result[:message] }
               else
