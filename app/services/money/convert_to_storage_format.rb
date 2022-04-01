@@ -4,6 +4,10 @@ class Money::ConvertToStorageFormat < Service
   end
 
   def call
-    (@summ.to_f * 100).to_i
+    (summ.to_f * 100).to_i
   end
+
+  private
+
+  attr_reader :summ
 end

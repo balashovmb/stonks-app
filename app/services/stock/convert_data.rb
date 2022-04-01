@@ -8,13 +8,17 @@ class Stock::ConvertData < Service
   end
 
   def call
-    case @source
+    case source
     when 'tradier'
-      stocks = Stock::ConvertDataFromTradier.call(stock_json: @stock_json)
+      stocks = Stock::ConvertDataFromTradier.call(stock_json: stock_json)
     end
     stocks.merge({
-                   source: @source,
-                   status: @status
+                   source: source,
+                   status: status
                  })
   end
+
+  private
+
+  attr_reader :stock_json, :source, :status
 end

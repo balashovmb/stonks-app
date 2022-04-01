@@ -6,7 +6,7 @@ describe DailyQuote::CreateFromTradierData do
 
   let(:subject) do
     described_class.call({ daily_quotes_json: daily_quotes_json, stock: stock },
-                         { start: '25-01-2022'.to_date, end: '24-02-2022'.to_date })
+                         { start_of_interval: '25-01-2022'.to_date, end_of_interval: '24-02-2022'.to_date })
   end
 
   it 'creates 22 DailyQuote records from Tradier\'s json' do

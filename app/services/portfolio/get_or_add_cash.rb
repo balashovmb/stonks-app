@@ -5,24 +5,28 @@ class Portfolio::GetOrAddCash < Service
   end
 
   def call
-    summ = @params[:summ].to_f
+    summ = params[:summ].to_f
     summ_in_cent = Money::ConvertToStorageFormat.call(summ)
-    operation = @params[:operation]
+    operation = params[:operation]
     return { success: false, message: 'Please select the operation' } unless operation
     return { success: false, message: 'Please input positive amount' } unless summ.positive?
 
     case operation
     when 'deposite'
-      new_cash = @portfolio.cash + summ_in_cent
-      @portfolio.update(cash: new_cash)
+      new_cash = portfolio.cash + summ_in_cent
+      portfolio.update(cash: new_cash)
       { success: true, message: "You added #{summ} $ to deposite" }
     when 'widthdraw'
-      if @portfolio.cash < summ_in_cent
+      if portfolio.cash < summ_in_cent
         return { success: false, message: "You don't have that much cash" }
       end
 
-      new_cash = @portfolio.cash - summ_in_cent
-      { success: true, message: "You have withdrawn #{summ} $" } if @portfolio.update(cash: new_cash)
+      new_cash = portfolio.cash - summ_in_cent
+      { success: true, message: "You have withdrawn #{summ} $" } if portfolio.update(cash: new_cash)
     end
   end
+
+  private
+
+  attr_reader :portfolio, :params
 end

@@ -4,21 +4,23 @@ class Portfolio::CreateReport < Service
   end
 
   def call
-    report = { cash: @portfolio.cash, value: @portfolio.cash }
-    tickers = @portfolio.trade_positions.includes(:stock).all.map { |position| position.stock.ticker }.sort.join(',')
+    report = { cash: portfolio.cash, value: portfolio.cash }
+    tickers = portfolio.trade_positions.includes(:stock).all.map { |position| position.stock.ticker }.sort.join(',')
     return report if tickers.empty?
 
     stocks_with_metadata = Stock::Get.call(tickers)
     stocks = stocks_with_metadata[:stocks]
     return report unless stocks
 
-    report[:trade_positions_dynamics] = trade_positions_dynamics(@portfolio.trade_positions, stocks)
+    report[:trade_positions_dynamics] = trade_positions_dynamics(portfolio.trade_positions, stocks)
     report[:financial_result] = financial_result(report)
-    report[:value] = (@portfolio.cash + financial_result(report)).to_i
+    report[:value] = (portfolio.cash + financial_result(report)).to_i
     report
   end
 
   private
+
+  attr_reader :portfolio
 
   def financial_result(report)
     report[:trade_positions_dynamics].inject(0) { |sum, stock| sum + stock[:financial_result] }

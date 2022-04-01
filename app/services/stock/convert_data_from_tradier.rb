@@ -7,7 +7,7 @@ class Stock::ConvertDataFromTradier < Service
 
   def call
     res = { stocks: {} }
-    stocks_data = JSON.parse(@stock_json)
+    stocks_data = JSON.parse(stock_json)
     if stocks_data['quotes']['unmatched_symbols']
       res[:unmatched_symbols] = stocks_data['quotes']['unmatched_symbols']['symbol']
       res[:errors] = true
@@ -28,6 +28,8 @@ class Stock::ConvertDataFromTradier < Service
   end
 
   private
+
+  attr_reader :stock_json
 
   def stock_props_to_hash(stock)
     ticker = stock['symbol']

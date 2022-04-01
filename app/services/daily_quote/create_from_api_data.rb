@@ -8,9 +8,13 @@ class DailyQuote::CreateFromApiData < Service
   end
 
   def call
-    case @source
+    case source
     when 'tradier'
-      DailyQuote::CreateFromTradierData.call(@data, @options)
+      DailyQuote::CreateFromTradierData.call(data, options)
     end
   end
+
+  private
+
+  attr_reader :data, :source, :options
 end
