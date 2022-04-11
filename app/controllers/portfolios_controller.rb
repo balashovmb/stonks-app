@@ -14,11 +14,7 @@ class PortfoliosController < ApplicationController
     authorize portfolio
 
     result = Portfolio::GetOrAddCash.call(portfolio, params)
-    message = if result[:success]
-                { notice: result[:message] }
-              else
-                { alert: result[:message] }
-              end
-    redirect_to '/portfolio', message
+
+    redirect_to '/portfolio', { result[:message_type] => result[:message] }
   end
 end
