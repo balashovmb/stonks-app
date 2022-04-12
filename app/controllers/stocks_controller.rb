@@ -19,21 +19,18 @@ class StocksController < ApplicationController
     @ticker = params[:ticker]
     return unless @ticker
 
-    stock_with_metadata = Stock::GetDataAndCreate.call(@ticker)
+    stock_props_and_history = Stock::GetPropsAndDailyQuotes.call(@ticker)
 
-    if stock_with_metadata&.dig(:data, :errors)
-      flash.now[:alert] = stock_with_metadata&.dig(:data, :error_message)
+    if stock_props_and_history[:error_message]
+      flash.now[:alert] = stock_props_and_history[:error_message]
       return render trading_stocks_path
     end
 
-    @stock_props = stock_with_metadata&.dig(:data, :stocks)&.first&.last
+    @stock_props = stock_props_and_history[:stock_props]
 
-    stock = stock_with_metadata[:stock]
-    return unless stock
+    @quotes = stock_props_and_history[:quotes]
 
-    @quotes = DailyQuote::LoadOrCreate.call(stock)
-
-    @deal = stock.deals.new
+    @deal = stock_props_and_history&.dig(:stock)&.deals&.new
   end
 
   private
