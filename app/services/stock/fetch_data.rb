@@ -7,7 +7,7 @@ class Stock::FetchData < Service
   end
 
   def call
-    url = URI("https://sandbox.tradier.com/v1/markets/quotes?symbols=#{@ticker}")
+    url = URI("https://sandbox.tradier.com/v1/markets/quotes?symbols=#{ticker}")
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
 
@@ -18,4 +18,8 @@ class Stock::FetchData < Service
     result = http.request(request)
     { stock_json: result.read_body, status: result.code, source: 'tradier' }
   end
+
+  private
+
+  attr_reader :ticker
 end

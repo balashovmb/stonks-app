@@ -9,14 +9,12 @@ class PortfoliosController < ApplicationController
   end
 
   def get_or_add_cash
-    authorize current_user.portfolio
+    portfolio = current_user.portfolio
 
-    result = current_user.portfolio.get_or_add_cash(params)
-    message = if result[:success]
-                { notice: result[:message] }
-              else
-                { alert: result[:message] }
-              end
-    redirect_to '/portfolio', message
+    authorize portfolio
+
+    result = Portfolio::GetOrAddCash.call(portfolio, params)
+
+    redirect_to '/portfolio', { result[:message_type] => result[:message] }
   end
 end

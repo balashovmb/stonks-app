@@ -5,7 +5,11 @@ class DailyQuote::Create < Service
   end
 
   def call
-    data = DailyQuote::FetchFromTradier.call(@stock, @options)
-    DailyQuote::CreateFromApiData.call(data, @options)
+    data = DailyQuote::FetchFromTradier.call(stock, options)
+    DailyQuote::CreateFromApiData.call(data, options)
   end
+
+  private
+
+  attr_reader :stock, :options
 end

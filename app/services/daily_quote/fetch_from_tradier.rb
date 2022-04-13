@@ -5,12 +5,12 @@ class DailyQuote::FetchFromTradier < Service
   def initialize(stock, options)
     @ticker = stock.ticker
     @stock = stock
-    @start = options[:start]
-    @end = options[:end]
+    @start_of_interval = options[:start_of_interval]
+    @end_of_interval = options[:end_of_interval]
   end
 
   def call
-    url = URI("https://sandbox.tradier.com/v1/markets/history?symbol=#{@ticker}&interval=daily&start=#{@start}&end=#{@end}")
+    url = URI("https://sandbox.tradier.com/v1/markets/history?symbol=#{ticker}&interval=daily&start=#{start_of_interval}&end=#{end_of_interval}")
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
 
@@ -20,6 +20,10 @@ class DailyQuote::FetchFromTradier < Service
 
     result = http.request(request)
 
-    { daily_quotes_json: result.read_body, status: result.code, source: 'tradier', stock: @stock }
+    { daily_quotes_json: result.read_body, status: result.code, source: 'tradier', stock: stock }
   end
+
+  private
+
+  attr_reader :ticker, :stock, :start_of_interval, :end_of_interval
 end

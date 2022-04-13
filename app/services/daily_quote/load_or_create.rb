@@ -1,27 +1,29 @@
 class DailyQuote::LoadOrCreate < Service
   def initialize(stock, options = {})
     @stock = stock
-    @end = options[:end] || last_day
-    @start = options[:start] || first_day
-    @options = options.merge(start: @start, end: @end)
+    @end_of_interval = options[:end_of_interval] || last_day
+    @start_of_interval = options[:start_of_interval] || first_day
+    @options = options.merge(start_of_interval: @start_of_interval, end_of_interval: @end_of_interval)
   end
 
   def call
-    loaded_quotes = DailyQuote.where(date: @start..@end, stock: @stock)
+    loaded_quotes = DailyQuote.where(date: start_of_interval..end_of_interval, stock: stock)
     return loaded_quotes.sort_by(&:date) if all_loaded?(loaded_quotes)
 
-    DailyQuote::Create.call(@stock, @options)
-    DailyQuote.where(date: @start..@end, stock: @stock).sort_by(&:date)
+    DailyQuote::Create.call(stock, options)
+    DailyQuote.where(date: start_of_interval..end_of_interval, stock: stock).sort_by(&:date)
   end
 
   private
+
+  attr_reader :stock, :end_of_interval, :start_of_interval, :options
 
   def last_day
     Time.zone.today.yesterday
   end
 
   def first_day
-    @end - 30
+    last_day - 30
   end
 
   def all_loaded?(loaded_quotes)
@@ -29,17 +31,17 @@ class DailyQuote::LoadOrCreate < Service
   end
 
   def first_working_day_loaded?(loaded_quotes)
-    return true if loaded_quotes.find_by(date: @start)
+    return true if loaded_quotes.find_by(date: start_of_interval)
 
-    date = @start
+    date = start_of_interval
     date += 1 while NonWorkingDay.find_by(date: date)
     loaded_quotes.find_by(date: date)
   end
 
   def last_working_day_loaded?(loaded_quotes)
-    return true if loaded_quotes.find_by(date: @end)
+    return true if loaded_quotes.find_by(date: end_of_interval)
 
-    date = @end
+    date = end_of_interval
     date -= 1 while NonWorkingDay.find_by(date: date)
     loaded_quotes.find_by(date: date)
   end
