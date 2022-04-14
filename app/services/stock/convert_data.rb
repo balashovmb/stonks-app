@@ -1,8 +1,8 @@
 require 'json'
 
 class Stock::ConvertData < Service
-  def initialize(stock_json:, status:, source:)
-    @stock_json = stock_json
+  def initialize(result_json:, status:, source:)
+    @stock_json = result_json
     @status = status
     @source = source
   end

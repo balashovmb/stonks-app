@@ -11,14 +11,14 @@ feature 'Broadcast quotes', '
     before { class_double("Stock::FetchData").as_stubbed_const }
 
     scenario 'updates quote', js: true do
-      allow(Stock::FetchData).to receive(:call).and_return({ stock_json: stock_json,
+      allow(Stock::FetchData).to receive(:call).and_return({ result_json: stock_json,
                                                              status: 200,
                                                              source: 'tradier' })
       visit trading_stocks_path
       fill_in 'Ticker', with: 'AAPL'
       click_on 'Get quote'
       expect(page).to have_content('124.61')
-      allow(Stock::FetchData).to receive(:call).and_return({ stock_json: stock_new_quote,
+      allow(Stock::FetchData).to receive(:call).and_return({ result_json: stock_new_quote,
                                                              status: 200,
                                                              source: 'tradier' })
       BroadcastQuotesJob.perform_now

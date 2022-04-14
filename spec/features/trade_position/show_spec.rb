@@ -5,12 +5,7 @@ feature 'Show trade position', '
 ' do
   given(:portfolio) { create(:portfolio) }
   context 'one deal' do
-    given(:stock_json) { File.read(Rails.root.join('spec/data/stock.json')) }
-    before do
-      allow(Stock::FetchData).to receive(:call).and_return({ stock_json: stock_json,
-                                                             status: 200,
-                                                             source: 'tradier' })
-    end
+    include_context 'stub_api'
 
     given!(:deal) { create(:deal, portfolio: portfolio) }
     scenario 'long position' do

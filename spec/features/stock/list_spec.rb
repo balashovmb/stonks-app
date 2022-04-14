@@ -7,7 +7,7 @@ feature 'Stocks list', '
   given!(:quote2) { create(:stock, ticker: 'AZZ') }
   given(:stocks_list_json) { File.read(Rails.root.join('spec/data/stocks_list.json')) }
   before do
-    allow(Stock::FetchData).to receive(:call).and_return({ stock_json: stocks_list_json,
+    allow(Stock::FetchData).to receive(:call).and_return({ result_json: stocks_list_json,
                                                            status: 200,
                                                            source: 'tradier' })
   end
