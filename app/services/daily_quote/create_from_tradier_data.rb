@@ -2,8 +2,8 @@ require 'json'
 
 class DailyQuote::CreateFromTradierData < Service
   def initialize(data, options)
-    @daily_quotes_json = data[:daily_quotes_json]
-    @stock = data[:stock]
+    @daily_quotes_json = data[:result_json]
+    @stock = options[:stock]
     @start_of_interval = options[:start_of_interval]
     @end_of_interval = options[:end_of_interval]
   end
