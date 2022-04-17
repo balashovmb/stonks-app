@@ -6,7 +6,7 @@ class DailyQuote::Create < Service
 
   def call
     data = DailyQuote::FetchFromTradier.call(stock, options)
-    DailyQuote::CreateFromApiData.call(data, options)
+    DailyQuote::CreateFromApiData.call(data, options.merge(stock: stock))
   end
 
   private
