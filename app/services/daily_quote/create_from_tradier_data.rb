@@ -19,19 +19,24 @@ class DailyQuote::CreateFromTradierData < Service
       current_date += 1
     end
 
-    create_non_working_days(end_of_interval, current_date)
+    current_date = create_non_working_days(end_of_interval, current_date)
+    create_non_working_day_at_the_end(current_date)
   end
 
   private
 
   attr_reader :daily_quotes_json, :stock, :start_of_interval, :end_of_interval
 
-  def create_non_working_days(date, current_date)
-    while date > current_date
+  def create_non_working_days(future_date, current_date)
+    while future_date > current_date
       NonWorkingDay.create(date: current_date)
       current_date += 1
     end
     current_date
+  end
+
+  def create_non_working_day_at_the_end(current_date)
+    NonWorkingDay.create(date: current_date) if current_date == end_of_interval
   end
 
   def convert(price)
