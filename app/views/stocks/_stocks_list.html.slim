@@ -10,11 +10,11 @@ table.table.table-striped.table-primary
   tbody
     - stocks.each_pair do |_, stock|
       tr
-        - ticker = stock[:ticker]
-        - stock_id = stock[:stock_object][:id]
+        - ticker = stock.ticker
+        - stock_id = stock.id
         td = link_to ticker, trading_stocks_path(ticker: ticker)
         - if with_name
-          td = stock[:description]
+          td = stock.description
         td = money_format(stock[:current_price], without_currency_sign: true)
         - if user_signed_in?
           td = render partial: "favorite_stocks/favorite_button", locals: {stock_id: stock_id}

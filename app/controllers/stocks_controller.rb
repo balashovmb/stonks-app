@@ -26,11 +26,11 @@ class StocksController < ApplicationController
       return render trading_stocks_path
     end
 
-    @stock_props = stock_props_and_history[:stock_props]
+    @stock = stock_props_and_history[:stock]
 
     @quotes = stock_props_and_history[:quotes]
 
-    @deal = stock_props_and_history&.dig(:stock)&.deals&.new
+    @deal = @stock&.deals&.new
   end
 
   private
