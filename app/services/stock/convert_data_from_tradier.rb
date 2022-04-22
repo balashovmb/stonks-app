@@ -35,6 +35,6 @@ class Stock::ConvertDataFromTradier < Service
     stock_object = Stock.find_or_create_by(ticker: ticker.upcase, description: description)
     stock_object.update(current_price: Money::ConvertToStorageFormat.call(stock['last']),
                         current_price_updated_at: Time.zone.now)
-    { ticker.downcase.to_sym => stock_object }
+    { ticker.upcase.to_sym => stock_object }
   end
 end

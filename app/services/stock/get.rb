@@ -32,13 +32,13 @@ class Stock::Get < Service
 
     ticker.split(",").each do |t|
       stock = Stock.find_by(ticker: t.upcase)
-      pp stock
+
       return nil unless stock
 
       current_price_updated_age = Time.zone.now - stock.current_price_updated_at
       return nil unless current_price_updated_age < quotes_expiration_time
 
-      res[:stocks].merge!({ stock.ticker.downcase.to_sym => stock })
+      res[:stocks].merge!({ stock.ticker.upcase.to_sym => stock })
     end
     res
   end

@@ -19,18 +19,24 @@ class StocksController < ApplicationController
     @ticker = params[:ticker]
     return unless @ticker
 
-    stock_props_and_history = Stock::GetPropsAndDailyQuotes.call(@ticker)
+    stock_props = Stock::Get.call(@ticker)
 
-    if stock_props_and_history[:error_message]
-      flash.now[:alert] = stock_props_and_history[:error_message]
+    if stock_props[:error_message]
+      flash.now[:alert] = stock_props[:error_message]
       return render trading_stocks_path
     end
 
-    @stock = stock_props_and_history[:stock]
+    @stock = stock_props[:stocks].first.last
 
-    @quotes = stock_props_and_history[:quotes]
+    @chart_props = DailyQuote::PrepareChartProps.call(@stock)
 
-    @deal = @stock&.deals&.new
+    @deal = @stock.deals.new
+  end
+
+  def daily_quotes
+    authorize Stock
+    stock = Stock.find(params[:stock_id])
+    render json: DailyQuote::PrepareDataForChart.call(stock)
   end
 
   private

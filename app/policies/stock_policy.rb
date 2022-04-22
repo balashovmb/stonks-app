@@ -13,4 +13,8 @@ class StockPolicy < ApplicationPolicy
   def trading?
     index?
   end
+
+  def daily_quotes?
+    index?
+  end
 end
