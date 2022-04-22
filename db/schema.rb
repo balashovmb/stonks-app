@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_07_140645) do
+ActiveRecord::Schema.define(version: 2022_04_21_100041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,9 @@ ActiveRecord::Schema.define(version: 2022_03_07_140645) do
     t.string "ticker", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "description", null: false
+    t.integer "current_price", null: false
+    t.datetime "current_price_updated_at"
     t.index ["ticker"], name: "index_stocks_on_ticker", unique: true
   end
 

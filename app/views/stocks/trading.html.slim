@@ -14,23 +14,23 @@
         p = "Unknown ticker: #{@ticker}"
       = @error_message
 
-      - if @stock_props
+      - if @stock
         .border-top.border-primary.mt-3
           .row.justify-content-start.mt-3
             .col-4
-              p.pt-2#current_ticker data-ticker= "#{@stock_props[:ticker]}" = "Ticker: #{@stock_props[:ticker]}"
+              p.pt-2#current_ticker data-ticker= "#{@stock.ticker}" = "Ticker: #{@stock.ticker}"
             .col-8
-              = render partial: "favorite_stocks/favorite_button", locals: {stock_id: @stock_props[:stock_object][:id]}
-          p = "Company:  #{@stock_props[:description]}"
+              = render partial: "favorite_stocks/favorite_button", locals: {stock_id: @stock.id}
+          p = "Company:  #{@stock.description}"
           - if @quotes&.any?
             = render partial: "stocks/stock_chart", locals: {stocks: @stocks}
-          p#quote = "Current price: #{money_format(@stock_props[:current_price])}"
-      - if @stock_props && user_signed_in?
+          p#quote = "Current price: #{money_format(@stock.current_price)}"
+      - if @stock && user_signed_in?
         .quote_errors
 
         = form_with(model: @deal, id: "new-deal", local: false) do |f|
-          = f.hidden_field :price, value: money_format(@stock_props[:current_price])
-          = f.hidden_field :stock_id, value: @deal.stock.id
+          = f.hidden_field :price, value: money_format(@stock.current_price)
+          = f.hidden_field :stock_id, value: @stock.id
           .row
             .col-2
               .form-check

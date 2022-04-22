@@ -5,16 +5,13 @@ class Stock::GetPropsAndDailyQuotes < Service
 
   def call
     res = { stock_props: nil, stock: nil, quotes: nil }
-    stock_with_metadata = Stock::GetDataAndCreate.call(@ticker)
+    stock_with_metadata = Stock::Get.call(@ticker)
 
-    if stock_with_metadata&.dig(:data, :errors)
-      return res.merge!(error_message: stock_with_metadata&.dig(:data, :error_message))
+    if stock_with_metadata&.dig(:errors)
+      return res.merge!(error_message: stock_with_metadata&.dig(:error_message))
     end
 
-    stock_props = stock_with_metadata&.dig(:data, :stocks)&.first&.last
-    res.merge!(stock_props: stock_props)
-
-    stock = stock_with_metadata[:stock]
+    stock = stock_with_metadata[:stocks].first.last
 
     return unless stock
 
