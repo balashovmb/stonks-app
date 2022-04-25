@@ -21,6 +21,7 @@ feature 'Broadcast quotes', '
       allow(Stock::FetchData).to receive(:call).and_return({ result_json: stock_new_quote,
                                                              status: 200,
                                                              source: 'tradier' })
+      Timecop.travel(Time.zone.now + 80.seconds)
       BroadcastQuotesJob.perform_now
       expect(page).to have_content('124.71')
     end

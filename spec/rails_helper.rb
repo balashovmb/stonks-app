@@ -75,5 +75,7 @@ RSpec.configure do |config|
   config.include FeatureHelpers, type: :feature
   Capybara.javascript_driver = :selenium_chrome_headless
   config.include ActionCable::TestHelper
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.extend ControllerMacros, type: :controller
 end
 WebMock.disable_net_connect!(allow_localhost: true, allow: 'https://chromedriver.storage.googleapis.com')

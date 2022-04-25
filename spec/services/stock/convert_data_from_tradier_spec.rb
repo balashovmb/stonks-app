@@ -8,14 +8,14 @@ describe Stock::ConvertDataFromTradier do
   let(:subject2) { described_class.call(stock_json: stocks_list) }
 
   it 'converts one stock data from Tradier' do
-    expect(subject).to eq(stocks: { aapl: Stock.first })
+    expect(subject).to eq(stocks: { AAPL: Stock.first })
   end
 
   it 'converts stocks list data from Tradier' do
     expect(subject2).to eq(
       stocks: {
-        aapl: Stock.first,
-        azz: Stock.last
+        AAPL: Stock.first,
+        AZZ: Stock.last
       }
     )
   end

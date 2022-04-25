@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :stocks, only: [:index] do
     get :trading, on: :collection
+    get :daily_quotes
   end
 
   resources :deals, only: [:create, :show, :index]

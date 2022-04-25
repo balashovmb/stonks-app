@@ -3,6 +3,7 @@ FactoryBot.define do
     ticker { 'AAPL' }
     description { 'Apple Inc' }
     current_price { 100 }
+    current_price_updated_at { Time.zone.now - 2.minute }
   end
 
   sequence :ticker do |n|
@@ -13,5 +14,6 @@ FactoryBot.define do
     ticker
     sequence(:description) {"Description #{_1}"}
     current_price { 100 }
+    current_price_updated_at { Time.zone.now }
   end
 end

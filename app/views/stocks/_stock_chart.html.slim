@@ -1,4 +1,1 @@
-- close_quotes = @quotes.pluck(:close)
-- max_scale = close_quotes.max/100 * 1.01
-- min_scale = close_quotes.min/100 * 0.99
-= line_chart(@quotes.map {|q| [q.date, q.close.to_f/100]}, curve: false, min: min_scale, max: max_scale, zeros: true, points: false, id: 'stock_chart')
+= line_chart stock_daily_quotes_path(@stock.id), refresh: chart_props[:refresh_rate], curve: false, zeros: true, points: false, min: chart_props[:min_scale], max: chart_props[:max_scale], id: 'stock_chart'
