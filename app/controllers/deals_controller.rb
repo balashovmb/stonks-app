@@ -26,7 +26,8 @@ class DealsController < ApplicationController
 
   def deal_params
     result = params.require(:deal).permit(:price, :direction, :volume, :stock_id)
-    result[:price] = Money::ConvertToStorageFormat.call(result[:price])
+    stock = Stock.find(result[:stock_id])
+    result[:price] = stock.current_price
     result
   end
 end
