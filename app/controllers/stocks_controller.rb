@@ -36,6 +36,7 @@ class StocksController < ApplicationController
   def daily_quotes
     authorize Stock
     stock = Stock.find(params[:stock_id])
+    BroadcastQuotesJob.perform_now if ENV["DEPLOYED_ON"] == "heroku"
     render json: DailyQuote::PrepareDataForChart.call(stock)
   end
 
