@@ -13,10 +13,6 @@ describe Stock::BroadcastQuotes do
           'textContent' =>
             [
               { 'selector' => '#quote', 'text' => 'Current price: 124.61 $', 'ticker' => 'AAPL' }
-            ],
-          'setValue' =>
-            [
-              { 'selector' => '#deal_price', 'value' => 124.61, 'ticker' => 'AAPL' }
             ]
         }
       }

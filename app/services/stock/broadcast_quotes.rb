@@ -17,11 +17,6 @@ class Stock::BroadcastQuotes < Service
         text: "Current price: #{money_format(quote)}",
         ticker: ticker
       )
-      .set_value(
-        selector: '#deal_price',
-        value: quote.to_f / 100,
-        ticker: ticker
-      )
     cable_ready.broadcast
   end
 
