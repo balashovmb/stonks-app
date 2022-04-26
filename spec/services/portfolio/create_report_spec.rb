@@ -12,9 +12,10 @@ describe Portfolio::CreateReport do
         cash: 999001,
         trade_positions_dynamics: [
           { amount: 999, average_price: 999, current_price: 12461, direction: "long",
-            financial_result: 11462, ticker: "AAPL", volume: 1, result_in_percent: 1147.35 }
+            financial_result: 11462, ticker: "AAPL", volume: 1, result_in_percent: 1147.35,
+            current_amount: 12461 }
         ],
-        value: 1010463,
+        value: 1011462,
         financial_result: 11462
       }
     )
