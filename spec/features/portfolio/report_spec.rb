@@ -10,9 +10,9 @@ feature 'Portfolio report', '
     scenario 'one stock' do
       sign_in(portfolio.user)
       click_on 'Portfolio'
-
-      expect(page).to have_content('Portfolio value: 10104.63 $')
+      expect(page).to have_content('Portfolio value: 10114.62 $')
       expect(page).to have_content('Financial result: 114.62 $')
+      expect(page).to have_content('Free cash: 9990.01 $')
     end
   end
 

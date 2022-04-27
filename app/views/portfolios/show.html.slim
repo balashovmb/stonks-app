@@ -13,8 +13,8 @@
         th Direction
         th Volume
         th Average price
-        th Amount
         th Current price
+        th Current amount
         th Financial result
         th Result in %
     tbody
@@ -26,8 +26,8 @@
           td = position[:direction]
           td = position[:volume]
           td = money_format(position[:average_price])
-          td = money_format(position[:amount])
           td = money_format(position[:current_price])
+          td = money_format(position[:current_amount])
           td = money_format(position[:financial_result])
           td = position[:result_in_percent]
   .border-top.border-primary.mt-2

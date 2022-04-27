@@ -5,7 +5,9 @@ class Portfolio::CreateReport < Service
 
   def call
     report = { cash: portfolio.cash, value: portfolio.cash }
-    tickers = portfolio.trade_positions.includes(:stock).all.map { |position| position.stock.ticker }.sort.join(',')
+    tickers = portfolio.trade_positions.includes(:stock).all.map do |position|
+      position.stock.ticker
+    end.sort.join(',')
     return report if tickers.empty?
 
     stocks_with_metadata = Stock::Get.call(tickers)
@@ -13,8 +15,10 @@ class Portfolio::CreateReport < Service
     return report unless stocks
 
     report[:trade_positions_dynamics] = trade_positions_dynamics(portfolio.trade_positions, stocks)
-    report[:financial_result] = financial_result(report)
-    report[:value] = (portfolio.cash + financial_result(report)).to_i
+    dynamic_props_of_positions = dynamic_props_of_positions(report[:trade_positions_dynamics])
+    current_amount_of_stocks = dynamic_props_of_positions[:current_amount]
+    report[:financial_result] = dynamic_props_of_positions[:financial_result]
+    report[:value] = portfolio.cash + current_amount_of_stocks
     report
   end
 
@@ -22,8 +26,12 @@ class Portfolio::CreateReport < Service
 
   attr_reader :portfolio
 
-  def financial_result(report)
-    report[:trade_positions_dynamics].inject(0) { |sum, stock| sum + stock[:financial_result] }
+  def dynamic_props_of_positions(trade_positions_dynamics)
+    trade_positions_dynamics.each_with_object({ current_amount: 0,
+                                                financial_result: 0 }) do |position, res|
+      res[:current_amount] += position[:current_price] * position[:volume]
+      res[:financial_result] += position[:financial_result]
+    end
   end
 
   def trade_positions_dynamics(trade_positions, stocks)
@@ -36,7 +44,7 @@ class Portfolio::CreateReport < Service
 
   def generate_position_props(current_position, stock)
     average_price = current_position.average_price
-    current_price = stock[:current_price]
+    current_price = stock[:current_price].to_i
     financial_result = (current_price - average_price) * current_position.volume
     financial_result *= -1 if current_position.direction == 'short'
     {
@@ -44,8 +52,9 @@ class Portfolio::CreateReport < Service
       direction: current_position.direction,
       volume: current_position.volume,
       amount: current_position.amount,
+      current_amount: current_price * current_position.volume,
       average_price: average_price,
-      current_price: current_price.to_i,
+      current_price: current_price,
       financial_result: financial_result.to_i,
       result_in_percent: percent(current_position.amount, financial_result)
     }
