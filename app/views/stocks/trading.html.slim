@@ -41,7 +41,7 @@
                 = f.label :direction, "Short", :value => 'short', class: "form-check-label"
           .mt-2.row.align-items-center
             .col-4
-              = f.text_field :volume, class: 'form-control'
+              = f.text_field :volume, class: 'form-control', autocomplete: :off
             .col-1
               = f.label :volume, 'Volume', class: 'form-label'
           .mt-3
