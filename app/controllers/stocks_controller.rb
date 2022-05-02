@@ -14,6 +14,7 @@ class StocksController < ApplicationController
     if current_user
       tickers = current_user.favorite_stocks.joins(:stock).pluck(:ticker).sort.join(',')
       @stocks = load_stocks_list(tickers)
+      @deals = current_user.portfolio.deals.last(10)
     end
 
     @ticker = params[:ticker]
@@ -30,7 +31,7 @@ class StocksController < ApplicationController
 
     @chart_props = DailyQuote::PrepareChartProps.call(@stock)
 
-    @deal = @stock.deals.new
+    @deal ||= @stock.deals.new
   end
 
   def daily_quotes

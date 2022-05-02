@@ -9,8 +9,10 @@ feature 'Broadcast quotes', '
     given(:stock_json) { File.read(Rails.root.join('spec/data/stock.json')) }
     given(:stock_new_quote) { File.read(Rails.root.join('spec/data/stock_new_quote.json')) }
     before { class_double("Stock::FetchData").as_stubbed_const }
+    let(:user) {create(:user)}
 
     scenario 'updates quote', js: true do
+      sign_in(user)
       allow(Stock::FetchData).to receive(:call).and_return({ result_json: stock_json,
                                                              status: 200,
                                                              source: 'tradier' })

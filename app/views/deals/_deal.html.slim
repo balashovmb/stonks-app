@@ -1,1 +1,2 @@
-= "Time: #{@deal.created_at.strftime('%F %R:%S')}, price: #{money_format(@deal.price)}, direction: #{@deal.direction}, volume: #{@deal.volume}, amount: #{money_format(@deal.amount)}"
+- if deal.persisted?
+  li= "Time: #{deal.created_at.strftime('%F %R:%S')}, price: #{money_format(deal.price)}, direction: #{deal.direction}, volume: #{deal.volume}, amount: #{money_format(deal.amount)}"

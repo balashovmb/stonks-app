@@ -1,1 +1,1 @@
-= line_chart stock_daily_quotes_path(@stock.id), refresh: chart_props[:refresh_rate], curve: false, zeros: true, points: false, min: chart_props[:min_scale], max: chart_props[:max_scale], id: 'stock_chart'
+= line_chart stock_daily_quotes_path(@stock.id), refresh: chart_props[:refresh_rate], curve: false, zeros: true, points: false, min: chart_props[:min_scale], max: chart_props[:max_scale], id: 'stock_chart', download: true

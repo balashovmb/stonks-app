@@ -3,7 +3,7 @@
     let div;
   }
   div = document.createElement('div');
-  div.innerHTML = `<%= j render @deal %>`;
+  div.innerHTML = `<%= j render "deals/deal" locals: {deal: @deal} %>`;
   document.querySelector('#deals').appendChild(div);
   document.getElementById("new-deal").reset();
   document.querySelector('#cash').innerHTML = 'Cash: <%= money_format(@deal.portfolio.cash) %>';
