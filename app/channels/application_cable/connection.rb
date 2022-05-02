@@ -6,11 +6,12 @@ module ApplicationCable
       self.current_user = find_verified_user
     end
 
-    protected
+    private
 
     def find_verified_user
-      if (current_user = env["warden"].user)
-        current_user
+      # rubocop:disable Lint/AssignmentInCondition
+      if verified_user = User.find_by(id: cookies.signed['user.id'])
+        verified_user
       else
         reject_unauthorized_connection
       end

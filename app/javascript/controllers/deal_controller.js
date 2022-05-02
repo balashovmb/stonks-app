@@ -76,4 +76,11 @@ export default class extends ApplicationController {
     // This triggers our Reflex...
     this.stimulate("Deal#create");
   }
+  afterCreate(element, reflex, noop, reflexId) {
+    const chart = Chartkick.charts["stock_chart"]
+    console.log(chart)
+    chart.refreshData()
+
+  }
+
 }
