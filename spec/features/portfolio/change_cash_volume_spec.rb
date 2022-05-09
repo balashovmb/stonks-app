@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'Change cash wolume', '
+feature 'Change cash volume', '
   A registered user can add cash to the portfolio and withdraw it
 ' do
   given(:user) { create(:user) }
@@ -60,7 +60,7 @@ feature 'Change cash wolume', '
     scenario 'user don\'t have enough cash' do
       sign_in(user)
       click_on 'Portfolio'
-      fill_in 'Summ', with: '1000'
+      fill_in 'Summ', with: '10001'
       choose 'operation_widthdraw'
       click_on 'Execute operation'
       expect(page).to have_content("You don't have that much cash")
