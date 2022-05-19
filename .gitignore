@@ -36,3 +36,7 @@ yarn-debug.log*
 .yarn-integrity
 /config/database.yml
 coverage
+.env
+init.sql
+yarn-debug.log*
+.yarn-integrity
