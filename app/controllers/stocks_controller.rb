@@ -11,12 +11,6 @@ class StocksController < ApplicationController
   def trading
     authorize Stock
 
-    if current_user
-      tickers = current_user.favorite_stocks.joins(:stock).pluck(:ticker).sort.join(',')
-      @stocks = load_stocks_list(tickers)
-      @deals = current_user.portfolio.deals.last(10)
-    end
-
     @ticker = params[:ticker]
     return unless @ticker
 
@@ -28,6 +22,14 @@ class StocksController < ApplicationController
     end
 
     @stock = stock_props[:stocks].first.last
+
+    if current_user
+      tickers = current_user.favorite_stocks.joins(:stock).pluck(:ticker).sort.join(',')
+      @stocks = load_stocks_list(tickers)
+      @deals = policy_scope(Deal).where(
+        stock: @stock, created_at: Time.zone.today..Time.zone.today + 1
+      ).last(10).reverse
+    end
 
     @chart_props = DailyQuote::PrepareChartProps.call(@stock)
 

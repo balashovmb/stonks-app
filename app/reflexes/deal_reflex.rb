@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class DealReflex < ApplicationReflex
+  include Pundit
   delegate :current_user, to: :connection
   # Add Reflex methods in this file.
   #
@@ -33,6 +34,7 @@ class DealReflex < ApplicationReflex
   #
   # Learn more at: https://docs.stimulusreflex.com/reflexes#reflex-classes
   def create
+    authorize Deal
     @deal = current_user.portfolio.deals.create(deal_params)
   end
 

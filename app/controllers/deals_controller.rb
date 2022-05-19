@@ -3,20 +3,20 @@ class DealsController < ApplicationController
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
 
-  def create
-    @deal = current_user.portfolio.deals.new(deal_params)
+  # def create
+  #   @deal = current_user.portfolio.deals.new(deal_params)
 
-    authorize @deal
+  #   authorize @deal
 
-    respond_to do |format|
-      format.js
-      if @deal.save
-        format.html { redirect_to @deal, notice: "You bought #{@deal.volume} stocks" }
-      else
-        format.html { render :new }
-      end
-    end
-  end
+  #   respond_to do |format|
+  #     format.js
+  #     if @deal.save
+  #       format.html { redirect_to @deal, notice: "You bought #{@deal.volume} stocks" }
+  #     else
+  #       format.html { render :new }
+  #     end
+  #   end
+  # end
 
   def index
     @deals = policy_scope(Deal).includes(:stock)
@@ -24,10 +24,10 @@ class DealsController < ApplicationController
 
   private
 
-  def deal_params
-    result = params.require(:deal).permit(:price, :direction, :volume, :stock_id)
-    stock = Stock.find(result[:stock_id])
-    result[:price] = stock.current_price
-    result
-  end
+  # def deal_params
+  #   result = params.require(:deal).permit(:price, :direction, :volume, :stock_id)
+  #   stock = Stock.find(result[:stock_id])
+  #   result[:price] = stock.current_price
+  #   result
+  # end
 end
