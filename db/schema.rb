@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_21_100041) do
-
+ActiveRecord::Schema[7.0].define(version: 2022_06_02_064950) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,8 +21,8 @@ ActiveRecord::Schema.define(version: 2022_04_21_100041) do
     t.integer "high", null: false
     t.integer "open", null: false
     t.integer "close", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["stock_id", "date"], name: "index_daily_quotes_on_stock_id_and_date", unique: true
     t.index ["stock_id"], name: "index_daily_quotes_on_stock_id"
   end
@@ -33,8 +32,8 @@ ActiveRecord::Schema.define(version: 2022_04_21_100041) do
     t.integer "price", null: false
     t.integer "volume", null: false
     t.integer "direction", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "portfolio_id", null: false
     t.index ["portfolio_id"], name: "index_deals_on_portfolio_id"
     t.index ["stock_id"], name: "index_deals_on_stock_id"
@@ -43,8 +42,8 @@ ActiveRecord::Schema.define(version: 2022_04_21_100041) do
   create_table "favorite_stocks", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "stock_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["stock_id"], name: "index_favorite_stocks_on_stock_id"
     t.index ["user_id", "stock_id"], name: "index_favorite_stocks_on_user_id_and_stock_id", unique: true
     t.index ["user_id"], name: "index_favorite_stocks_on_user_id"
@@ -52,33 +51,33 @@ ActiveRecord::Schema.define(version: 2022_04_21_100041) do
 
   create_table "non_working_days", force: :cascade do |t|
     t.date "date", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["date"], name: "index_non_working_days_on_date", unique: true
   end
 
   create_table "portfolios", force: :cascade do |t|
     t.integer "cash"
     t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_portfolios_on_user_id"
   end
 
   create_table "stocks", force: :cascade do |t|
     t.string "ticker", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "description", null: false
     t.integer "current_price", null: false
-    t.datetime "current_price_updated_at"
+    t.datetime "current_price_updated_at", precision: nil
     t.index ["ticker"], name: "index_stocks_on_ticker", unique: true
   end
 
   create_table "subscribed_quotes", force: :cascade do |t|
     t.string "ticker", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["ticker"], name: "index_subscribed_quotes_on_ticker", unique: true
   end
 
@@ -88,8 +87,8 @@ ActiveRecord::Schema.define(version: 2022_04_21_100041) do
     t.integer "volume", null: false
     t.integer "average_price", null: false
     t.integer "direction", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["portfolio_id"], name: "index_trade_positions_on_portfolio_id"
     t.index ["stock_id"], name: "index_trade_positions_on_stock_id"
   end
@@ -98,10 +97,10 @@ ActiveRecord::Schema.define(version: 2022_04_21_100041) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

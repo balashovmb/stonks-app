@@ -1,20 +1,20 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.6'
+ruby '3.1.2'
 
-gem 'bootsnap', '>= 1.4.4', require: false
+gem 'bootsnap', '>= 1.12.0', require: false
 gem 'chartkick'
 gem 'devise'
 gem 'jbuilder', '~> 2.7'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'pundit'
-gem 'rails', '~> 6.1.5'
+gem 'rails', '~> 7.0.3'
 gem 'sass-rails', '>= 6'
 gem 'sidekiq'
 gem 'slim-rails'
-gem 'stimulus_reflex', '~> 3.4'
+gem 'stimulus_reflex', '~> 3.5.0.pre9'
 gem 'turbolinks', '~> 5'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'unicorn'

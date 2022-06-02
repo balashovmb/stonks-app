@@ -15,7 +15,7 @@ class Stock::Get < Service
     return from_database if from_database
 
     data = Stock::FetchData.call(ticker)
-    Stock::ConvertData.call(data)
+    Stock::ConvertData.call(**data)
   end
 
   private

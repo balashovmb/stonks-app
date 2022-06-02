@@ -8,7 +8,7 @@ const quotes_channel = consumer.subscriptions.create("QuotesChannel", {
   },
   received(data) {
     const tickerElement = document.getElementById("current_ticker");
-    const receivedDataTicker = data.operations.textContent[0].ticker;
+    const receivedDataTicker = data.operations[0].ticker;
     if (tickerElement && tickerElement.dataset.ticker == receivedDataTicker) {
       if (data.cableReady) CableReady.perform(data.operations);
       this.perform("quotes_received", { ticker: receivedDataTicker });
