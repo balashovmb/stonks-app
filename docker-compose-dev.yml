@@ -1,0 +1,70 @@
+version: "3.8"
+
+x-shared: &shared
+  env_file:
+    - ./docker_dev/.env_docker
+x-base: &base
+  <<: *shared
+  build:
+    dockerfile: ./docker_dev/Dockerfile
+    context: .
+  volumes: &base_volumes
+    - .:/app
+    - bundle_volume:/bundle
+  depends_on:
+    - postgresql
+    - redis
+# 4.1.0
+
+services:
+  chrome:
+    image: selenium/standalone-chrome:4.1.0
+    volumes:
+      - /dev/shm:/dev/shm
+    environment:
+      CONNECTION_TIMEOUT: 600000
+  postgresql:
+    <<: *shared
+    image: postgres:12.11
+    volumes:
+      - postgresql_volume:/var/lib/postgresql/data
+    # Debug from local machine
+    ports:
+      - 5333:5432
+  redis:
+    image: redis:alpine
+    volumes:
+      - redis_volume:/data
+  test:
+    <<: *base
+    environment:
+      RAILS_ENV: test
+      RACK_ENV: test
+      NODE_ENV: test
+    depends_on:
+      - postgresql
+      - redis
+      - chrome
+  web:
+    <<: *base
+    tty: true
+    stdin_open: true
+    restart: always
+    volumes:
+      - .:/app
+      - bundle_volume:/bundle
+      # Used mainly for sshing into servers
+      - $SSH_AUTH_SOCK:/ssh-agent
+      - ~/.ssh/known_hosts:/etc/ssh/ssh_known_hosts
+    command: ./docker_dev/start.sh
+    ports:
+      - 3000:3000
+      # Webpacker
+      - 3035:3035
+volumes:
+  postgresql_volume:
+    driver: local
+  redis_volume:
+    driver: local
+  bundle_volume:
+    driver: local

@@ -65,6 +65,28 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  Capybara.register_driver :chrome_headless do |app|
+    chrome_capabilities = ::Selenium::WebDriver::Remote::Capabilities.chrome('goog:chromeOptions' => { 'args': %w[no-sandbox headless disable-gpu window-size=1400,1400] })
+  
+    if ENV['HUB_URL']
+      Capybara::Selenium::Driver.new(app,
+                                     browser: :remote,
+                                     url: ENV['HUB_URL'],
+                                     capabilities: chrome_capabilities)
+    else
+      Capybara::Selenium::Driver.new(app,
+                                     browser: :chrome,
+                                     capabilities: chrome_capabilities)
+    end
+  end
+  
+  Capybara.app_host = "http://#{IPSocket.getaddress(Socket.gethostname)}:3000"
+  Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
+  Capybara.server_port = 3000
+
+  Capybara.javascript_driver = :chrome_headless
+  # Capybara.javascript_driver = :selenium_chrome_headless
+
   Shoulda::Matchers.configure do |config|
     config.integrate do |with|
       with.test_framework :rspec
@@ -73,9 +95,13 @@ RSpec.configure do |config|
   end
   config.include FactoryBot::Syntax::Methods
   config.include FeatureHelpers, type: :feature
-  Capybara.javascript_driver = :selenium_chrome_headless
+
   config.include ActionCable::TestHelper
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.extend ControllerMacros, type: :controller
 end
-WebMock.disable_net_connect!(allow_localhost: true, allow: 'https://chromedriver.storage.googleapis.com')
+WebMock.disable_net_connect!(allow_localhost: true, allow: [
+  'https://chromedriver.storage.googleapis.com',
+  'http://chrome:4444',
+  IPSocket.getaddress(Socket.gethostname)
+])

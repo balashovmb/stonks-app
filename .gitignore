@@ -36,3 +36,4 @@ yarn-debug.log*
 .yarn-integrity
 /config/database.yml
 coverage
+/docker_dev/.env_docker
