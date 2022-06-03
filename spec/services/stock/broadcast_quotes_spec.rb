@@ -7,15 +7,14 @@ describe Stock::BroadcastQuotes do
 
   it 'broadcasts quote' do
     expect { subject }.to have_broadcasted_to('quotes_AAPL').with(
-      {
-        'cableReady' => true,
-        'operations' => {
-          'textContent' =>
-            [
-              { 'selector' => '#quote', 'text' => 'Current price: 124.61 $', 'ticker' => 'AAPL' }
-            ]
-        }
-      }
+      { "cableReady": true,
+        "operations": [
+          { "selector": "#quote",
+            "text": "Current price: 124.61 $",
+            "ticker": "AAPL",
+            "operation": "textContent" }
+        ],
+        "version": "5.0.0.pre9" }
     )
   end
 end
