@@ -1,5 +1,5 @@
-import { Controller } from 'stimulus'
-import StimulusReflex from 'stimulus_reflex'
+import { Controller } from '@hotwired/stimulus'
+// import StimulusReflex from 'stimulus_reflex'
 
 /* This is your ApplicationController.
  * All StimulusReflex controllers should inherit from this class.
@@ -14,7 +14,7 @@ import StimulusReflex from 'stimulus_reflex'
  */
 export default class extends Controller {
   connect () {
-    StimulusReflex.register(this)
+    // StimulusReflex.register(this)
   }
 
   /* Application-wide lifecycle methods

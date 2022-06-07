@@ -37,3 +37,6 @@ yarn-debug.log*
 /config/database.yml
 coverage
 /docker_dev/.env_docker
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

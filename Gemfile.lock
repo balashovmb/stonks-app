@@ -207,8 +207,6 @@ GEM
     rack (2.2.3.1)
     rack-mini-profiler (2.3.4)
       rack (>= 1.2.0)
-    rack-proxy (0.7.2)
-      rack
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (7.0.3)
@@ -285,7 +283,6 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    semantic_range (3.0.0)
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
     sidekiq (6.4.2)
@@ -315,16 +312,6 @@ GEM
     sshkit (1.21.2)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
-    stimulus_reflex (3.5.0.pre9)
-      actioncable (>= 5.2)
-      actionpack (>= 5.2)
-      actionview (>= 5.2)
-      activesupport (>= 5.2)
-      cable_ready (>= 5.0.0.pre9)
-      nokogiri
-      rack
-      railties (>= 5.2)
-      redis
     strscan (3.0.3)
     temple (0.8.2)
     thor (1.2.1)
@@ -332,9 +319,10 @@ GEM
     tilt (2.0.10)
     timecop (0.9.5)
     timeout (0.3.0)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
+    turbo-rails (1.1.1)
+      actionpack (>= 6.0.0)
+      activejob (>= 6.0.0)
+      railties (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicorn (6.1.0)
@@ -356,11 +344,6 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webpacker (5.4.3)
-      activesupport (>= 5.2)
-      rack-proxy (>= 0.6.1)
-      railties (>= 5.2)
-      semantic_range (>= 2.3.0)
     websocket (1.2.9)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
@@ -381,6 +364,7 @@ DEPENDENCIES
   bootsnap (>= 1.12.0)
   bullet
   byebug
+  cable_ready (~> 5.0.pre9)
   capistrano
   capistrano-bundler
   capistrano-rails
@@ -407,15 +391,13 @@ DEPENDENCIES
   sidekiq
   simplecov
   slim-rails
-  stimulus_reflex (~> 3.5.0.pre9)
   timecop
-  turbolinks (~> 5)
+  turbo-rails
   tzinfo-data
   unicorn
   web-console (>= 4.1.0)
   webdrivers
   webmock
-  webpacker (~> 5.0)
   whenever
 
 RUBY VERSION

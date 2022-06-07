@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.1.2'
 
 gem 'bootsnap', '>= 1.12.0', require: false
+gem 'cable_ready', '~> 5.0.pre9'
 gem 'chartkick'
 gem 'devise'
 gem 'jbuilder', '~> 2.7'
@@ -14,11 +15,9 @@ gem 'rails', '~> 7.0.3'
 gem 'sass-rails', '>= 6'
 gem 'sidekiq'
 gem 'slim-rails'
-gem 'stimulus_reflex', '~> 3.5.0.pre9'
-gem 'turbolinks', '~> 5'
+gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'unicorn'
-gem 'webpacker', '~> 5.0'
 gem 'whenever', require: false
 
 group :development, :test do
@@ -55,3 +54,4 @@ group :test do
   gem 'webdrivers'
   gem 'webmock'
 end
+

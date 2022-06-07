@@ -27,7 +27,7 @@ const quotes_channel = consumer.subscriptions.create("QuotesChannel", {
     if (!this.installedPageCallback) {
       this.installedPageCallback = true;
       document.addEventListener(
-        "turbolinks:load",
+        "turbo:load",
         quotes_channel.followCurrentQuote
       );
     }
