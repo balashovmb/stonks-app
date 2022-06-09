@@ -10,7 +10,7 @@
 * Background jobs (Using ActiveJob)
 * ActionCable, CableReady
 
-#### App is deployed [here](http://stonks.balashov.net.ru/)
+#### App is deployed [here](http://radiant-brook-78167.herokuapp.com//)
 
 ## Development with docker-compose (optional)
 

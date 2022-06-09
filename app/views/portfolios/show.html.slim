@@ -3,52 +3,48 @@
   p = "Free cash: #{money_format(@portfolio_report[:cash])}"
   p = "Portfolio value: #{money_format(@portfolio_report[:value])}"
   p = "Financial result: #{money_format(@portfolio_report[:financial_result])}"
-  p = link_to "All deals", deals_path
-  .border-top.border-primary.mt-2
-  .mt-2.h3 Positions
-  table.table.table-striped.table-primary
-    thead
-      tr
-        th Ticker
-        th Direction
-        th Volume
-        th Average price
-        th Current price
-        th Current amount
-        th Financial result
-        th Result in %
-    tbody
-      - @portfolio_report[:trade_positions_dynamics]&.each do |position|
-        tr
-          td
-            - ticker = position[:ticker]
-            = link_to ticker, trading_stocks_path(ticker: ticker)
-          td = position[:direction]
-          td = position[:volume]
-          td = money_format(position[:average_price])
-          td = money_format(position[:current_price])
-          td = money_format(position[:current_amount])
-          td = money_format(position[:financial_result])
-          td = position[:result_in_percent]
-  .border-top.border-primary.mt-2
+  p.text-gray-600.hover:text-gray-800 = link_to "All deals", deals_path
+  .border-t.mt-2.border-slate-400
+  
 
-  .mt-2.h3 Cash operations
+  .text-2xl.my-2.text-center Positions
+  .flex
+    table.table-fixed.border.border-slate-400.flex-1
+      thead
+        tr.bg-blue-300
+          th.px-2 Ticker
+          th.px-2 Direction
+          th.px-2 Volume
+          th.px-2 Average price
+          th.px-2 Current price
+          th.px-2 Current amount
+          th.px-2 Financial result
+          th.px-2 Result in %
+      tbody
+        - @portfolio_report[:trade_positions_dynamics]&.each_with_index do |position,i|
+          tr class="border border-slate-400 #{css_alternation(i,  "bg-gray-100", "bg-blue-200")}"
+            td.text-center.text-gray-600.hover:text-gray-800
+              - ticker = position[:ticker]
+              = link_to ticker, trading_stocks_path(ticker: ticker)
+            td.text-center = position[:direction]
+            td.text-center = position[:volume]
+            td.text-center = money_format(position[:average_price])
+            td.text-center = money_format(position[:current_price])
+            td.text-center = money_format(position[:current_amount])
+            td.text-center = money_format(position[:financial_result])
+            td.text-center = position[:result_in_percent]
+  .border-t.border-slate-400.mt-2
+
+  .mt-2.text-2xl Cash operations
   = form_with url: get_or_add_cash_portfolio_path, method: :patch do |f|
-    .row.mt-2
-      .col-1
-        .form-check
-          = f.radio_button :operation, "deposite", class: "form-check-input"
-          = f.label :operation, "Deposite", :value => 'deposite', class: "form-check-label"
-      .col-1
-        .form-check
-          = f.radio_button :operation, "widthdraw", class: "form-check-input"
-          = f.label :operation, "Widthdraw", :value => 'widthdraw', class: "form-check-label"
-    .row.mt-2.align-items-center
-      .col-1
-        => f.label :summ, 'Summ', class: 'form-label'
-      .col-2
-        = f.text_field :summ, class: 'form-control form-control-sm'
-    .row.mt-3
-      .col-1
-      .col-1
-        = f.submit 'Execute operation', class: 'btn btn-primary  btn-sm'
+    .mt-2
+      .form-check
+        = f.radio_button :operation, "deposite", class: "form-check-input"
+        =< f.label :operation, "Deposite", :value => "deposite", class: "form-check-label"
+      .form-check
+        = f.radio_button :operation, "widthdraw", class: "form-check-input"
+        =< f.label :operation, "Widthdraw", :value => "widthdraw", class: "form-check-label"
+    .flex.items-center.mt-2
+      => f.label :summ, "Summ", class: "form-label"
+      = f.text_field :summ, class: "form-control rounded-md ml-4"
+      = f.submit "Execute operation", class: "bg-blue-200 hover:bg-blue-400 border border-blue-900 rounded-md p-2 ml-2"
