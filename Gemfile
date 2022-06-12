@@ -6,14 +6,16 @@ ruby '3.1.2'
 gem 'bootsnap', '>= 1.12.0', require: false
 gem 'cable_ready', '~> 5.0.pre9'
 gem 'chartkick'
+gem "cssbundling-rails"
 gem 'devise'
 gem 'jbuilder', '~> 2.7'
+gem "jsbundling-rails"
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'pundit'
 gem 'rails', '~> 7.0.3'
-gem 'sass-rails', '>= 6'
 gem 'sidekiq'
+gem "sprockets-rails"
 gem 'slim-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

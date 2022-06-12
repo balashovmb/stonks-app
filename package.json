@@ -22,9 +22,5 @@
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css"
-  },
-  "devDependencies": {
-    "watch": "^1.0.2",
-    "webpack-bundle-analyzer": "^4.5.0"
   }
 }
