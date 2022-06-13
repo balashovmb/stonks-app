@@ -4,4 +4,8 @@ module ApplicationHelper
     number ||= 0
     "#{number / 100.0}#{without_currency_sign ? '' : ' $'}"
   end
+
+  def css_alternation(number, prop1, prop2)
+    number.even? ? prop1 : prop2
+  end
 end

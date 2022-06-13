@@ -1,12 +1,13 @@
-.row
-  .col-8
-    - if @stocks
-      = render partial: "stocks/stocks_list", locals: {stocks: @stocks, with_name: true}
-    - else
-      'Stocks list are empty
-    end
-  .col-4
-    p Test user: user@test.com
-    p Password: 123456
-    p
-      i Quotes are updated during the NYSE trading session, including pre-market and post-market (8:00 AM EST to 5:00 PM EST)
+.mt-4
+  .flex
+    div class="w-2/3"
+      - if @stocks
+        = render partial: "stocks/stocks_list", locals: {stocks: @stocks, with_name: true}
+      - else
+        'Stocks list are empty
+      end
+    div class="w-1/3 pl-4"
+      p Test user: user@test.com
+      p Password: 123456
+      p
+        i Quotes are updated during the NYSE trading session, including pre-market and post-market (8:00 AM EST to 5:00 PM EST)

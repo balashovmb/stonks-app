@@ -1,23 +1,27 @@
-
-table.table.table-striped.table-primary
+- if with_name
+  - ticker_width = "w-1/6"
+  - quote_width = "w-1/6"
+- else
+  - ticker_width = "w-2/6"
+  - quote_width = "w-2/6"
+table.border.border-slate-400
   thead
-    tr
-      th Ticker
+    tr.bg-blue-300
+      th class="#{ticker_width} py-2" Ticker
       - if with_name
-        th Company
-      th Quote
-      th
+        th class="w-3/6" Company
+      th class="#{quote_width}" Quote
+      - if user_signed_in?
+        th
   tbody
-    - stocks.each_pair do |_, stock|
-      tr
+    - stocks.each_with_index do |(_, stock), i|
+      tr class="border border-slate-400 #{css_alternation(i,  "bg-gray-100", "bg-blue-200")}"
         - ticker = stock.ticker
         - stock_id = stock.id
-        td = link_to ticker, trading_stocks_path(ticker: ticker)
+        td.text-center.text-gray-600.hover:text-gray-800 = link_to ticker, trading_stocks_path(ticker: ticker)
         - if with_name
           td = stock.description
-        td = money_format(stock[:current_price], without_currency_sign: true)
+        td.text-center = money_format(stock[:current_price], without_currency_sign: true)
         - if user_signed_in?
           td = render partial: "favorite_stocks/favorite_button", locals: {stock_id: stock_id}
-        - else
-          td =
         end
