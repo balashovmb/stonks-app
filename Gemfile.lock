@@ -306,6 +306,8 @@ GEM
     sshkit (1.21.2)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    stimulus-rails (1.0.4)
+      railties (>= 6.0.0)
     strscan (3.0.3)
     temple (0.8.2)
     thor (1.2.1)
@@ -380,6 +382,7 @@ DEPENDENCIES
   rack-mini-profiler (~> 2.0)
   rails (~> 7.0.3)
   rails-controller-testing
+  redis (~> 4.0)
   rspec-rails
   selenium-webdriver
   shoulda-matchers
@@ -387,6 +390,7 @@ DEPENDENCIES
   simplecov
   slim-rails
   sprockets-rails
+  stimulus-rails
   timecop
   turbo-rails
   tzinfo-data

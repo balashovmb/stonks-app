@@ -1,3 +1,4 @@
+= turbo_stream_from "deals"
 .container
   .flex
     .w-3/4.mr-4
@@ -24,28 +25,18 @@
           p = "Company:  #{@stock.description}"
           - if @stock
             = render partial: "stocks/stock_chart", locals: {chart_props: @chart_props}
-          p.mt-4#quote = "Current price: #{money_format(@stock.current_price)}"
-
-      .quote_errors
+        .flex
+          .w-2/3
+            p.mt-4#quote = "Current price: #{money_format(@stock.current_price)}"
 
       - if @stock && user_signed_in?
-        = form_with(model: @deal, id: "new-deal", local: false) do |f|
-          = f.hidden_field :stock_id, value: @stock.id
-          .mt-2
-            .form-check
-              = f.radio_button :direction, "long", class: "form-check-input"
-              = f.label :direction, "Long", :value => "long", class: "form-check-label ml-2"
-
-            .form-check
-              = f.radio_button :direction, "short", class: "form-check-input"
-              = f.label :direction, "Short", :value => "short", class: "form-check-label ml-2"
-          .mt-3.flex.items-center
-            = f.text_field :volume, class: "form-control w-1/3 rounded-md", autocomplete: :off
-            = f.label :volume, "Volume", class: "form-label ml-2 w-1/6"
-          .mt-2
-            = f.submit "Make a deal", class: "bg-blue-200 hover:bg-blue-400 active:bg-blue-500 border border-blue-900 rounded-md p-2"
-          .border-top.border-primary.mt-3
-        .mt-3#deals
+        = turbo_frame_tag "deals_with_form" do
+          = render partial: "deals/deal_form", locals: { deal: @deal }
+          - if @deals
+            .border-t.border-gray-600.my-3
+            = turbo_frame_tag "deals" do
+              = render @deals
+            end
 
     .w-1/4.mt-2
       - if @stocks

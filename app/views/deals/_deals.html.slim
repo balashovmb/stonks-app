@@ -1,0 +1,13 @@
+.flex
+    table.table-fixed.border.border-slate-400.flex-1
+      thead
+        tr.bg-blue-300
+          th.px-3 Ticker
+          th.px-3 Time
+          th.px-3 Direction
+          th.px-3 Price
+          th.px-3 Volume
+          th.px-3 Amount
+      tbody
+        - deals.find_each do |deal|
+          = render partial: "deals/deal_table_row", locals: {deal: deal}
