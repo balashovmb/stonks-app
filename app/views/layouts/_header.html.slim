@@ -14,7 +14,7 @@
     ul.mr-4
       - if user_signed_in?
         li.text-base.text-gray-600.hover:text-gray-800 = link_to current_user.email, edit_user_registration_path
+        li.text-sm.text-gray-800#cash Cash: #{money_format(current_user.portfolio.cash)}
         li.text-sm.text-gray-600.hover:text-gray-800 = link_to "Sign out", destroy_user_session_path, method: :delete
-        li.text-sm.text-gray-800#cash.mt-1 = "Cash: #{money_format(current_user.portfolio.cash)}"
       - else
         li.text-base.text-gray-600.hover:text-gray-800 = link_to "Sign in", new_user_session_path

@@ -28,6 +28,10 @@ class StocksController < ApplicationController
 
     @stock = stock_props[:stocks].first.last
 
+    @deals = policy_scope(Deal).where(
+      stock: @stock, created_at: Time.zone.today..Time.zone.today + 1
+    ).last(10).reverse if @stock && user_signed_in?
+
     @chart_props = DailyQuote::PrepareChartProps.call(@stock)
 
     @deal = @stock.deals.new

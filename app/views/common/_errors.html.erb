@@ -1,5 +1,11 @@
-<ul class='mt-2 alert alert-danger'>
-  <% resource.errors.full_messages.each do |message| %>
-    <li><%= message.lstrip %></li>
-  <% end %>
-</ul>
+<% if resource.errors.any? %>
+  <div id="error_explanation" >
+    <h2 class="text-red-700 font-bold"><%= pluralize(resource.errors.count, "error") %> prohibited this resource from being saved:</h2>
+
+    <ul>
+    <% resource.errors.full_messages.each do |message| %>
+      <li class="text-red-700"><%= message %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>

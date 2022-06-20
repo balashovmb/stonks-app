@@ -1,1 +1,2 @@
-= "Time: #{@deal.created_at.strftime('%F %R:%S')}, price: #{money_format(@deal.price)}, direction: #{@deal.direction}, volume: #{@deal.volume}, amount: #{money_format(@deal.amount)}"
+= turbo_frame_tag dom_id(deal)
+  p = "Time: #{deal.created_at.strftime('%F %R:%S')}, price: #{money_format(deal.price)}, direction: #{deal.direction}, volume: #{deal.volume}, amount: #{money_format(deal.amount)}"

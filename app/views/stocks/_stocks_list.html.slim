@@ -14,8 +14,8 @@ table.border.border-slate-400
       - if user_signed_in?
         th
   tbody
-    - stocks.each_with_index do |(_, stock), i|
-      tr class="border border-slate-400 #{css_alternation(i,  "bg-gray-100", "bg-blue-200")}"
+    - stocks.each do |_, stock|
+      tr class="border border-slate-400 standard_row"
         - ticker = stock.ticker
         - stock_id = stock.id
         td.text-center.text-gray-600.hover:text-gray-800 = link_to ticker, trading_stocks_path(ticker: ticker)

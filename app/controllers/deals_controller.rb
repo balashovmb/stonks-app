@@ -9,10 +9,14 @@ class DealsController < ApplicationController
     authorize @deal
 
     respond_to do |format|
-      format.js
       if @deal.save
-        format.html { redirect_to @deal, notice: "You bought #{@deal.volume} stocks" }
+        format.html { redirect_to trading_stocks_url(ticker: @deal.stock.ticker) }
       else
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace(
+            @deal, partial: 'deals/deal_form', locals: { deal: @deal }
+          )
+        end
         format.html { render :new }
       end
     end

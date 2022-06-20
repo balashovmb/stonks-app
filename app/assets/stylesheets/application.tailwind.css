@@ -16,4 +16,7 @@
  @tailwind base;
  @tailwind components;
  @tailwind utilities;
- 
+
+.standard_row:nth-child(2n) {
+  @apply bg-blue-200
+}

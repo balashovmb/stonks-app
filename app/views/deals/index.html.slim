@@ -1,24 +1,9 @@
 - if @deals.any?
   .w-2/3
     .text-xl.my-2.text-center Your deals
-    .flex
-      table.table-fixed.border.border-slate-400.flex-1
-        thead
-          tr.bg-blue-300
-            th.px-3 Ticker
-            th.px-3 Time
-            th.px-3 Direction
-            th.px-3 Price
-            th.px-3 Volume
-            th.px-3 Amount
-        tbody
-          - @deals.find_each.with_index do |deal, i|
-            tr class="border border-slate-400 #{css_alternation(i,  "bg-gray-100", "bg-blue-200")}"
-              td.text-center = deal.stock.ticker
-              td.text-center = deal.created_at.strftime('%F %R:%S')
-              td.text-center = deal.direction
-              td.text-center = money_format(deal.price, without_currency_sign: true)
-              td.text-center = deal.volume
-              td.text-center = money_format(deal.amount, without_currency_sign: true)
+    = turbo_frame_tag @deals do
+      = render partial: "deals/deals", locals: {deals: @deals}
+    end
+
 - else 
   .text-xl You haven't made a single deal yet

@@ -1,0 +1,7 @@
+tr id="#{dom_id deal}" class="border border-slate-400 standard_row"
+  td.text-center = deal.stock.ticker
+  td.text-center = deal.created_at.strftime('%F %R:%S')
+  td.text-center = deal.direction
+  td.text-center = money_format(deal.price, without_currency_sign: true)
+  td.text-center = deal.volume
+  td.text-center = money_format(deal.amount, without_currency_sign: true)
