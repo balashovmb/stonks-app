@@ -44,6 +44,12 @@ class StocksController < ApplicationController
     render json: DailyQuote::PrepareDataForChart.call(stock)
   end
 
+  def subscribe_on_quotes
+    authorize Stock
+    SubscribedQuote::Create.call(params[:ticker])
+    head :no_content
+  end
+
   private
 
   def load_stocks_list(tickers)

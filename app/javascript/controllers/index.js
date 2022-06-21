@@ -10,3 +10,5 @@ const application = Application.start()
 import CashController from "./cash_controller.js"
 application.register("cash", CashController)
 
+import PriceController from "./price_controller.js"
+application.register("price", PriceController)

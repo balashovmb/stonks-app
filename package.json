@@ -10,7 +10,6 @@
     "@tailwindcss/forms": "^0.5.0",
     "@tailwindcss/typography": "^0.5.2",
     "autoprefixer": "^10.4.2",
-    "cable_ready": "^5.0.0-pre9",
     "chart.js": "^3.7.1",
     "chartkick": "^4.1.1",
     "postcss": "^8.4.6",

@@ -1,5 +1,4 @@
 class Stock::BroadcastQuotes < Service
-  include CableReady::Broadcaster
   include ApplicationHelper
 
   def initialize(ticker)
@@ -8,16 +7,15 @@ class Stock::BroadcastQuotes < Service
 
   def call
     stock_data = Stock::Get.call(ticker)
-    quote = stock_data[:stocks]&.first&.last&.current_price
+    stock = stock_data[:stocks]&.first&.last
+    quote = stock.current_price
     return unless quote
 
-    cable_ready["quotes_#{ticker}"]
-      .text_content(
-        selector: '#quote',
-        text: "Current price: #{money_format(quote)}",
-        ticker: ticker
-      )
-    cable_ready.broadcast
+    stock.broadcast_update_to(
+      "quotes_#{ticker}",
+      target: "#{ticker}_price",
+      partial: "stocks/current_price", locals: {ticker: ticker, current_price: quote }
+    )
   end
 
   private

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :stocks, only: [:index] do
     get :trading, on: :collection
     get :daily_quotes
+    get :subscribe_on_quotes, on: :collection
   end
 
   resources :deals, only: [:create, :show, :index]

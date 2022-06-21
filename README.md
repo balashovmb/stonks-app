@@ -8,7 +8,9 @@
 * Getting data using the API(Source is tradier.com API)
 * Service objects
 * Background jobs (Using ActiveJob)
-* ActionCable, CableReady
+* Hotwire(Stimulus, Turbo Streams, Turbo Frames)
+* Tailwind CSS
+* Docker(for development)
 
 #### App is deployed [here](http://radiant-brook-78167.herokuapp.com//)
 

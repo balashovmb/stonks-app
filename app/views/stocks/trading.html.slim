@@ -27,7 +27,9 @@
             = render partial: "stocks/stock_chart", locals: {chart_props: @chart_props}
         .flex
           .w-2/3
-            p.mt-4#quote = "Current price: #{money_format(@stock.current_price)}"
+            = turbo_stream_from "quotes_#{@stock.ticker}"
+            .mt-4 id="#{@stock.ticker}_price"
+              = render partial: "stocks/current_price", locals: { ticker: @stock.ticker, current_price: @stock.current_price }
 
       - if @stock && user_signed_in?
         = turbo_frame_tag "deals_with_form" do
