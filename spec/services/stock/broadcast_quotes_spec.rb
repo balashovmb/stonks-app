@@ -7,14 +7,7 @@ describe Stock::BroadcastQuotes do
 
   it 'broadcasts quote' do
     expect { subject }.to have_broadcasted_to('quotes_AAPL').with(
-      { "cableReady": true,
-        "operations": [
-          { "selector": "#quote",
-            "text": "Current price: 124.61 $",
-            "ticker": "AAPL",
-            "operation": "textContent" }
-        ],
-        "version": "5.0.0.pre9" }
+      "\u003cturbo-stream action=\"update\" target=\"AAPL_price\"\u003e\u003ctemplate\u003e\u003cp data-controller=\"price\" data-price-ticker-value=\"AAPL\"\u003eCurrent price: 124.61 $\u003c/p\u003e\u003c/template\u003e\u003c/turbo-stream\u003e"
     )
   end
 end

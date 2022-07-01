@@ -17,4 +17,8 @@ class StockPolicy < ApplicationPolicy
   def daily_quotes?
     index?
   end
+
+  def subscribe_on_quotes?
+    index?
+  end
 end
