@@ -17,14 +17,14 @@
 
       - if @stock
         .border-t.border-gray-700.mt-4
-          .flex.items-center.mt-3
-            .w-1/6
-              p.pt-2#current_ticker data-ticker="#{@stock.ticker}" = "Ticker: #{@stock.ticker}"
-            .w-1/6
-              = render partial: "favorite_stocks/favorite_button", locals: {stock_id: @stock.id}
-          p = "Company:  #{@stock.description}"
-          - if @stock
-            = render partial: "stocks/stock_chart", locals: {chart_props: @chart_props}
+        .flex.items-center.mt-3
+          .w-1/6
+            p.pt-2#current_ticker data-ticker="#{@stock.ticker}" = "Ticker: #{@stock.ticker}"
+          .w-1/6
+            = render partial: "favorite_stocks/favorite_button", locals: {stock_id: @stock.id}
+        p = "Company:  #{@stock.description}"
+        #stock_chart
+        *{"data-controller":"chart", "data-chart-id-value": @stock.id}
         .flex
           .w-2/3
             = turbo_stream_from "quotes_#{@stock.ticker}"

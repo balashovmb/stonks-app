@@ -18,7 +18,7 @@ table.border.border-slate-400
       tr class="border border-slate-400 standard_row"
         - ticker = stock.ticker
         - stock_id = stock.id
-        td.text-center.text-gray-600.hover:text-gray-800 = link_to ticker, trading_stocks_path(ticker: ticker)
+        td.text-center.text-gray-600.hover:text-gray-800 = link_to ticker, trading_stocks_path(ticker: ticker), data: {turbo: :false}
         - if with_name
           td = stock.description
         td.text-center = money_format(stock[:current_price], without_currency_sign: true)
