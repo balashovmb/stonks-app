@@ -9,7 +9,10 @@ RSpec.describe StocksController, type: :controller do
     before { get :daily_quotes, params: { stock_id: stock.id } }
 
     it 'sends json responce' do
-      expect(JSON.parse(response.body)).to include(["2022-01-25", 159.78], ["2022-02-25", 124.61])
+      expect(JSON.parse(response.body)).to include(
+        {"x" => "2022-01-25", "y" => [158.97, 162.76, 157.02, 159.78]},
+        {"x" => "2022-02-24", "y" => [152.58, 162.85, 152.0, 162.74]}
+      )
     end
   end
 end

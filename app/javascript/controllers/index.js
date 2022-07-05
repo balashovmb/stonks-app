@@ -3,7 +3,6 @@
 // ./bin/rails generate stimulus controllerName
 
 import { Application } from "@hotwired/stimulus"
-import consumer from '../channels/consumer'
 
 const application = Application.start()
 
@@ -12,3 +11,6 @@ application.register("cash", CashController)
 
 import PriceController from "./price_controller.js"
 application.register("price", PriceController)
+
+import ChartController from "./chart_controller.js"
+application.register("chart", ChartController)

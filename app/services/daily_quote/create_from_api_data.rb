@@ -1,5 +1,3 @@
-require 'json'
-
 class DailyQuote::CreateFromApiData < Service
   def initialize(data, options)
     @data = data
