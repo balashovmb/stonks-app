@@ -49,7 +49,7 @@ class TradePosition::CreateOrUpdate < Service
     if same_direction
       (trade_position.amount + deal.amount) / (trade_position.volume + deal.volume)
     else
-      (trade_position.average_price - deal.amount).abs / (trade_position.volume + deal.volume).abs
+      (trade_position.amount - deal.amount).abs / (trade_position.volume - deal.volume).abs
     end
   end
 
