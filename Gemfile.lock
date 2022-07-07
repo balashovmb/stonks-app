@@ -308,6 +308,8 @@ GEM
       net-ssh (>= 2.8.0)
     stimulus-rails (1.0.4)
       railties (>= 6.0.0)
+    strong_migrations (1.2.0)
+      activerecord (>= 5.2)
     strscan (3.0.3)
     temple (0.8.2)
     thor (1.2.1)
@@ -391,6 +393,7 @@ DEPENDENCIES
   slim-rails
   sprockets-rails
   stimulus-rails
+  strong_migrations
   timecop
   turbo-rails
   tzinfo-data
