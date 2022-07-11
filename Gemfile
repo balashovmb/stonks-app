@@ -10,6 +10,7 @@ gem "cssbundling-rails"
 gem 'devise'
 gem 'jbuilder', '~> 2.7'
 gem "jsbundling-rails"
+gem 'pagy', '~> 5.10'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'pundit'

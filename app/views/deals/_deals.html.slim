@@ -9,5 +9,5 @@
           th.px-3 Volume
           th.px-3 Amount
       tbody
-        - deals.find_each do |deal|
+        - deals.each do |deal|
           = render partial: "deals/deal_table_row", locals: {deal: deal}

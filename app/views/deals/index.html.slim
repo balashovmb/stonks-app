@@ -4,6 +4,7 @@
     = turbo_frame_tag @deals do
       = render partial: "deals/deals", locals: {deals: @deals}
     end
-
+    .flex.justify-center
+      == render partial: 'pagy/nav', locals: {pagy: @pagy}
 - else 
   .text-xl You haven't made a single deal yet
