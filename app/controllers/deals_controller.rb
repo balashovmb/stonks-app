@@ -1,4 +1,6 @@
 class DealsController < ApplicationController
+  include Pagy::Backend
+
   before_action :authenticate_user!, only: %i[create index]
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
@@ -23,7 +25,7 @@ class DealsController < ApplicationController
   end
 
   def index
-    @deals = policy_scope(Deal).includes(:stock)
+    @pagy, @deals = pagy(policy_scope(Deal).includes(:stock).order(created_at: :desc))
   end
 
   private

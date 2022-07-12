@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Pagy::Frontend
+
   def money_format(number, options = {})
     without_currency_sign = options[:without_currency_sign]
     number ||= 0
