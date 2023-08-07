@@ -5,6 +5,7 @@
 
 import Rails from "@rails/ujs"
 import "@hotwired/turbo-rails"
+import morphdom from "morphdom"
 // import * as ActiveStorage from "@rails/activestorage"
 import "./channels"
 import "./deals"
@@ -12,3 +13,13 @@ import "./deals"
 Rails.start()
 
 import "./controllers"
+
+document.addEventListener("turbo:before-render", (event) => {
+  console.log('render')
+  event.detail.render = morphdom;
+})
+
+document.addEventListener('turbo:render', function(event) {
+  console.log('render1')
+});
+console.log('render0')
