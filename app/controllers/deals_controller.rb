@@ -13,12 +13,13 @@ class DealsController < ApplicationController
     respond_to do |format|
       if @deal.save
         format.html { redirect_to trading_stocks_url(ticker: @deal.stock.ticker) }
-      else
         format.turbo_stream do
+          p '11'
           render turbo_stream: turbo_stream.replace(
             @deal, partial: 'deals/deal_form', locals: { deal: @deal }
           )
         end
+      else
         format.html { render :new }
       end
     end

@@ -18,8 +18,3 @@ document.addEventListener("turbo:before-render", (event) => {
   console.log('render')
   event.detail.render = morphdom;
 })
-
-document.addEventListener('turbo:render', function(event) {
-  console.log('render1')
-});
-console.log('render0')
