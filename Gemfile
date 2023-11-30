@@ -16,6 +16,8 @@ gem 'puma', '~> 5.0'
 gem 'pundit'
 gem 'rails', '~> 7.0.3'
 gem "redis", "~> 4.0"
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
 gem 'sidekiq'
 gem 'slim-rails'
 gem 'sprockets-rails'

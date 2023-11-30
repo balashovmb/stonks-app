@@ -21,6 +21,11 @@
   <div class="actions">
     <%= f.submit "Log in", class:"bg-gray-200 hover:bg-gray-300 border border-gray-700 rounded-md px-2 my-2 text-lg" %>
   </div>
+
+
+
 <% end %>
 
+  <%= link_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path, data: { turbo: false } %>
+  <%= button_to "Sign in with Google", user_google_oauth2_omniauth_authorize_path, data: { turbo: false } %>
 <%= render "devise/shared/links" %>
