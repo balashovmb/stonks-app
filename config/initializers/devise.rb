@@ -273,6 +273,22 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :google_oauth2, Rails.application.credentials.google_client_id, Rails.application.credentials.google_client_secret, {}
+  # config.omniauth :okta, Rails.application.credentials.okta_client_id, Rails.application.credentials.okta_client_secret, {}
+  config.omniauth(:okta,
+  Rails.application.credentials.okta_client_id,
+  Rails.application.credentials.okta_client_secret,
+  :scope => 'openid profile email',
+  :fields => ['profile', 'email'],
+  :client_options => {site: Rails.application.credentials.okta_domain,
+                     authorize_url: Rails.application.credentials.okta_domain + "/authpath/authorize",
+                     token_url: Rails.application.credentials.okta_domain + "/authpath/token",
+                     user_info_url: [ENV['OKTA_ISSUER'], '/authpath/userinfo'].join
+                    },
+  :redirect_uri => "http://localhost:3000/users/auth/okta/callback",
+
+  # :issuer => ENV['OKTA_ISSUER'],
+  :strategy_class => OmniAuth::Strategies::Okta)
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

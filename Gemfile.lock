@@ -228,6 +228,9 @@ GEM
     omniauth-oauth2 (1.8.0)
       oauth2 (>= 1.4, < 3)
       omniauth (~> 2.0)
+    omniauth-okta (2.0.0)
+      omniauth (~> 2.0)
+      omniauth-oauth2 (~> 1.7, >= 1.7.1)
     omniauth-rails_csrf_protection (1.0.1)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
@@ -419,6 +422,7 @@ DEPENDENCIES
   launchy
   listen (~> 3.3)
   omniauth-google-oauth2
+  omniauth-okta
   omniauth-rails_csrf_protection
   pagy (~> 5.10)
   pg (~> 1.1)
