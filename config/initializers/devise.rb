@@ -273,22 +273,36 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   config.omniauth :google_oauth2, Rails.application.credentials.google_client_id, Rails.application.credentials.google_client_secret, {}
-  # config.omniauth :okta, Rails.application.credentials.okta_client_id, Rails.application.credentials.okta_client_secret, {}
   config.omniauth(:okta,
-  Rails.application.credentials.okta_client_id,
-  Rails.application.credentials.okta_client_secret,
-  :scope => 'openid profile email',
-  :fields => ['profile', 'email'],
-  :client_options => {site: Rails.application.credentials.okta_domain,
-                     authorize_url: Rails.application.credentials.okta_domain + "/authpath/authorize",
-                     token_url: Rails.application.credentials.okta_domain + "/authpath/token",
-                     user_info_url: [ENV['OKTA_ISSUER'], '/authpath/userinfo'].join
+                  Rails.application.credentials.okta_client_id,
+                  Rails.application.credentials.okta_client_secret,
+                  scope: 'openid profile email',
+                  fields: ['profile', 'email'],
+
+                  client_options: {
+                     site:  Rails.application.credentials.okta_issuer,
+                     authorize_url: Rails.application.credentials.okta_issuer + '/authpath/token',
+                     token_url: Rails.application.credentials.okta_issuer + '/authpath/token',
+                     user_info_url: Rails.application.credentials.okta_issuer + '/authpath/userinfo'
                     },
-  :redirect_uri => "http://localhost:3000/users/auth/okta/callback",
-
-  # :issuer => ENV['OKTA_ISSUER'],
-  :strategy_class => OmniAuth::Strategies::Okta)
-
+                  redirect_uri: "http://localhost:3000/users/auth/okta/callback",
+                  strategy_class: OmniAuth::Strategies::Okta)
+                  # )
+                  # config.omniauth(:okta,
+                  # ENV['OKTA_CLIENT_ID'],
+                  # ENV['OKTA_CLIENT_SECRET'],
+                  # :scope => 'openid profile email',
+                  # :fields => %w[profile email],
+                  # :client_options => {
+                  #   site: ENV['OKTA_ISSUER'],
+                  #   authorize_url: [ENV['OKTA_ISSUER'], '/authpath/authorize'].join,
+                  #   token_url: [ENV['OKTA_ISSUER'], '/authpath/token'].join,
+                  #   user_info_url: [ENV['OKTA_ISSUER'], '/authpath/userinfo'].join
+                  # },
+                  # :redirect_uri => ENV['OKTA_REDIRECT_URI'],
+                  # :strategy_class => OmniAuth::Strategies::Okta)
+                  #                  # name: :okta_oauth,
+                  # provider_ignores_state: true,
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

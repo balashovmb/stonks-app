@@ -17,6 +17,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       end
   end
 
+  def okta
+    p 'okta'
+    p request.env['omniauth.auth']
+  end
+
+
+
   def passthru
     p '11111111111111111'
   end
