@@ -65,27 +65,44 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  # Capybara.register_driver :chrome_headless do |app|
+  #   chrome_capabilities = ::Selenium::WebDriver::Remote::Capabilities.chrome('goog:chromeOptions' => { 'args': %w[no-sandbox headless=new disable-gpu window-size=1400,1400] })
+  #   if ENV['HUB_URL']
+  #     Capybara::Selenium::Driver.new(app,
+  #                                    browser: :remote,
+  #                                    url: ENV['HUB_URL'],
+  #                                    capabilities: chrome_capabilities)
+  #   else
+  #     Capybara::Selenium::Driver.new(app,
+  #                                    browser: :chrome,
+  #                                    capabilities: chrome_capabilities)
+  #   end
+  # end
+
+  # Capybara.app_host = "http://#{IPSocket.getaddress(Socket.gethostname)}:3000"
+  # Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
+  # Capybara.server_port = 3000
+  # Capybara.javascript_driver = :chrome_headless
+  Capybara.javascript_driver = :selenium_chrome_headless
   Capybara.register_driver :chrome_headless do |app|
-    chrome_capabilities = ::Selenium::WebDriver::Remote::Capabilities.chrome('goog:chromeOptions' => { 'args': %w[no-sandbox headless disable-gpu window-size=1400,1400] })
+    options = Selenium::WebDriver::Chrome::Options.new
   
+    options.add_argument('--headless=new')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--window-size=1400,1400')
+
     if ENV['HUB_URL']
       Capybara::Selenium::Driver.new(app,
                                      browser: :remote,
                                      url: ENV['HUB_URL'],
-                                     capabilities: chrome_capabilities)
+                                     options: )
     else
       Capybara::Selenium::Driver.new(app,
                                      browser: :chrome,
-                                     capabilities: chrome_capabilities)
+                                     options: )
     end
   end
-  
-  Capybara.app_host = "http://#{IPSocket.getaddress(Socket.gethostname)}:3000"
-  Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
-  Capybara.server_port = 3000
-
-  Capybara.javascript_driver = :chrome_headless
-  # Capybara.javascript_driver = :selenium_chrome_headless
 
   Shoulda::Matchers.configure do |config|
     config.integrate do |with|
@@ -101,6 +118,7 @@ RSpec.configure do |config|
   config.extend ControllerMacros, type: :controller
 end
 WebMock.disable_net_connect!(allow_localhost: true, allow: [
+  'https://github.com',
   'https://chromedriver.storage.googleapis.com',
   'http://chrome:4444',
   IPSocket.getaddress(Socket.gethostname)

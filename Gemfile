@@ -44,19 +44,23 @@ group :development do
   gem 'capistrano-sidekiq', require: false
   gem 'listen', '~> 3.3'
   gem 'rack-mini-profiler', '~> 2.0'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec'
+  gem 'solargraph'
   # gem 'spring'
   gem 'web-console', '>= 4.1.0'
 end
 
 group :test do
   gem 'action-cable-testing'
-  gem 'capybara', '>= 3.26'
+  gem 'capybara'
   gem 'launchy'
   gem 'rails-controller-testing'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'simplecov', require: false
   gem 'timecop'
-  gem 'webdrivers'
+  # gem 'webdrivers'
   gem 'webmock'
 end
