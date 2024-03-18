@@ -147,6 +147,11 @@ GEM
     diff-lcs (1.5.0)
     digest (3.1.0)
     docile (1.4.0)
+    dry-core (0.8.1)
+      concurrent-ruby (~> 1.0)
+    dry-monads (1.4.0)
+      concurrent-ruby (~> 1.0)
+      dry-core (~> 0.7)
     e2mmap (0.1.0)
     erubi (1.10.0)
     factory_bot (6.2.1)
@@ -435,6 +440,7 @@ DEPENDENCIES
   chartkick
   cssbundling-rails
   devise
+  dry-monads
   factory_bot_rails
   jbuilder (~> 2.7)
   jsbundling-rails

@@ -8,12 +8,12 @@ class Stock::ConvertData < Service
   def call
     case source
     when 'tradier'
-      stocks = Stock::ConvertDataFromTradier.call(stock_json: stock_json)
+      stocks = yield Stock::ConvertDataFromTradier.call(stock_json:)
     end
-    stocks.merge({
-                   source: source,
-                   status: status
-                 })
+    Success(stocks.merge({
+                           source:,
+                           status:
+                         }))
   end
 
   private

@@ -7,6 +7,7 @@ gem 'bootsnap', '>= 1.12.0', require: false
 gem 'cable_ready', '~> 5.0.pre9'
 gem 'chartkick'
 gem "cssbundling-rails"
+gem "dry-monads"
 gem 'devise'
 gem 'jbuilder', '~> 2.7'
 gem "jsbundling-rails"

@@ -10,19 +10,17 @@ class Stock::ConvertDataFromTradier < Service
     stocks_data = JSON.parse(stock_json)
     if stocks_data['quotes']['unmatched_symbols']
       res[:unmatched_symbols] = stocks_data['quotes']['unmatched_symbols']['symbol']
-      res[:errors] = true
-      res[:error_message] = 'Ticker not found'
     end
     stocks_props = stocks_data['quotes']['quote']
 
-    return res unless stocks_props
+    return Failure(message: 'Ticker not found') unless stocks_props
 
     stocks_props = [stocks_props].flatten
 
     stocks_props.each do |prop|
       res[:stocks].merge!(stock_props_to_hash(prop))
     end
-    res
+    Success(res)
   end
 
   private

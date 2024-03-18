@@ -15,6 +15,6 @@ class PortfoliosController < ApplicationController
 
     result = Portfolio::GetOrAddCash.call(portfolio, params)
 
-    redirect_to '/portfolio', { result[:message_type] => result[:message] }
+    redirect_to '/portfolio', result_message(result)
   end
 end

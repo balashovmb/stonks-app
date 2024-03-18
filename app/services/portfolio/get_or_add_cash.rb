@@ -7,9 +7,9 @@ class Portfolio::GetOrAddCash < Service
   end
 
   def call
-    return { message: 'Please select the operation', message_type: :alert } unless operation
+    return Failure(message: 'Please select the operation') unless operation
 
-    return { message: 'Please input positive amount', message_type: :alert } unless summ.positive?
+    return Failure(message: 'Please input positive amount') unless summ.positive?
 
     perform_operation
   end
@@ -31,17 +31,15 @@ class Portfolio::GetOrAddCash < Service
   def deposite(summ_in_cent)
     new_cash = portfolio.cash + summ_in_cent
     portfolio.update(cash: new_cash)
-    { message: "You added #{summ} $ to deposite", message_type: :notice }
+    Success(message: "You have deposited #{summ} $")
   end
 
   def widthdraw(summ_in_cent)
-    if portfolio.cash < summ_in_cent
-      return { message: "You don't have that much cash", message_type: :alert }
-    end
+    return Failure(message: "You don't have enough cash") if portfolio.cash < summ_in_cent
 
     new_cash = portfolio.cash - summ_in_cent
     return unless portfolio.update(cash: new_cash)
 
-    { message: "You have withdrawn #{summ} $", message_type: :notice }
+    Success(message: "You have withdrawn #{summ} $")
   end
 end

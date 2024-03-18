@@ -7,7 +7,7 @@ class Stock::BroadcastQuotes < Service
 
   def call
     stock_data = Stock::Get.call(ticker)
-    stock = stock_data[:stocks]&.first&.last
+    stock = stock_data.success[:stocks]&.first&.last
     quote = stock.current_price
     return unless quote
 

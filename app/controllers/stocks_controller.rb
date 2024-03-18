@@ -21,12 +21,12 @@ class StocksController < ApplicationController
 
     stock_props = Stock::Get.call(@ticker)
 
-    if stock_props[:error_message]
-      flash.now[:alert] = stock_props[:error_message]
+    if stock_props.failure?
+      flash.now[:alert] = stock_props.failure[:message]
       return render trading_stocks_path
     end
 
-    @stock = stock_props[:stocks].first.last
+    @stock = stock_props.success[:stocks].first.last
 
     @deals = policy_scope(Deal).where(
       stock: @stock, created_at: Time.zone.today..Time.zone.today + 1
@@ -53,7 +53,9 @@ class StocksController < ApplicationController
   private
 
   def load_stocks_list(tickers)
-    stocks_with_metadata = Stock::Get.call(tickers) unless tickers.empty?
-    stocks_with_metadata[:stocks] if stocks_with_metadata&.dig(:stocks)
+    return nil if tickers.empty?
+
+    stocks_with_metadata = Stock::Get.call(tickers)
+    stocks_with_metadata.success[:stocks] if stocks_with_metadata.success? #if stocks_with_metadata&.dig(:stocks)
   end
 end

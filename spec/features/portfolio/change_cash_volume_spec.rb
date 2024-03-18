@@ -42,7 +42,7 @@ feature 'Change cash volume', '
     fill_in 'Summ', with: '1000'
     choose 'operation_deposite'
     click_on 'Execute operation'
-    expect(page).to have_content('You added 1000.0 $')
+    expect(page).to have_content('You have deposited 1000.0 $')
   end
 
   context 'withdraw' do
@@ -63,7 +63,7 @@ feature 'Change cash volume', '
       fill_in 'Summ', with: '10001'
       choose 'operation_widthdraw'
       click_on 'Execute operation'
-      expect(page).to have_content("You don't have that much cash")
+      expect(page).to have_content("You don't have enough cash")
     end
   end
 end

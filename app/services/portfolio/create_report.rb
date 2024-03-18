@@ -11,7 +11,7 @@ class Portfolio::CreateReport < Service
     return report if tickers.empty?
 
     stocks_with_metadata = Stock::Get.call(tickers)
-    stocks = stocks_with_metadata[:stocks]
+    stocks = stocks_with_metadata.success? ? stocks_with_metadata.success[:stocks] : nil
     return report unless stocks
 
     report[:trade_positions_dynamics] = trade_positions_dynamics(portfolio.trade_positions, stocks)
