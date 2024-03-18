@@ -1,13 +1,13 @@
 class Money::ConvertToViewFormat < Service
-  def initialize(summ)
-    @summ = summ
+  def initialize(sum)
+    @sum = sum
   end
 
   def call
-    summ.to_f / 100
+    sum.to_f / 100
   end
 
   private
 
-  attr_reader :summ
+  attr_reader :sum
 end
